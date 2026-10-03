@@ -1,0 +1,73 @@
+name: Spoke chain request
+description: Propose a new chain where Atollway assets can be held.
+title: "chain: add "
+labels: ["chain-request", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Atollway reaches other chains through **Axelar** or **Chainlink CCIP**, either directly from Hedera or through a CCIP relay on Base. Please confirm the chain is supported by at least one of them before opening a request.
+  - type: input
+    id: chain
+    attributes:
+      label: Chain name
+      placeholder: e.g. Robinhood Chain
+    validations:
+      required: true
+  - type: input
+    id: chain-ids
+    attributes:
+      label: Chain IDs
+      placeholder: "testnet: 46630, mainnet: 4663"
+    validations:
+      required: true
+  - type: dropdown
+    id: vm
+    attributes:
+      label: Execution environment
+      options:
+        - EVM
+        - Solana (SVM)
+        - Move (Sui / Aptos)
+        - Stellar (Soroban)
+        - Canton (Daml)
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: transport
+    attributes:
+      label: Available routes from Hedera
+      multiple: true
+      options:
+        - Axelar (direct)
+        - Chainlink CCIP (direct)
+        - Chainlink CCIP via Base relay
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence of support
+      description: Links to the Axelar chain config, the CCIP directory entry, or recent messages on Axelarscan / CCIP Explorer.
+    validations:
+      required: true
+  - type: textarea
+    id: resources
+    attributes:
+      label: Testnet resources
+      description: RPC URL, block explorer and faucet links.
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why this chain?
+      description: Users, liquidity or tokenized-asset activity that makes it worth supporting.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and this chain has not been requested.
+          required: true
+        - label: I can help implement or test the spoke.
