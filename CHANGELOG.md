@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Agent briefing (AGENTS.md) and agent skills from the Scaffold-HBAR template.
 - Contributing guide, code of conduct, security policy and code owners.
 - This changelog.
+- CI: frontend lint, type-check and build.
 
 ### Security
 
