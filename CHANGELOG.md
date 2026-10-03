@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Contributing guide, code of conduct, security policy and code owners.
 - This changelog.
 - CI: frontend lint, type-check and build.
+- CI: contract formatting, size check, build and tests.
 
 ### Security
 
