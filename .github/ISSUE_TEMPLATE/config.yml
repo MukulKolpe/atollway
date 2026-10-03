@@ -1,0 +1,10 @@
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/MukulKolpe/atollway/security/advisories/new
+    about: Please report security issues privately. Never open a public issue for them.
+  - name: Ask a question
+    url: https://github.com/MukulKolpe/atollway/discussions
+    about: Questions, ideas and show-and-tell belong in GitHub Discussions.
+  - name: Hedera developer Discord
+    url: https://hedera.com/discord
+    about: General help with Hedera development from the community.
