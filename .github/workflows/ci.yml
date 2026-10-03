@@ -37,3 +37,36 @@ jobs:
 
       - name: Build
         run: yarn next:build
+
+  contracts:
+    name: Contracts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - name: Set up Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Check formatting
+        run: yarn foundry:lint
+
+      # Only project contracts are size-checked: test helpers in lib/ are never deployed.
+      - name: Build and check contract sizes
+        working-directory: packages/foundry
+        run: forge build contracts --sizes
+
+      - name: Test
+        working-directory: packages/foundry
+        run: forge test -vvv
