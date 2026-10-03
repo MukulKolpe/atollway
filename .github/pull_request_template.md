@@ -43,3 +43,4 @@ N/A
 - [ ] Docs are updated (README, AGENTS.md, `docs/`) where behaviour changed
 - [ ] `template.json` is updated if scripts, environment variables or next steps changed
 - [ ] No secrets, private keys or `.env` files are committed
+- [ ] `CHANGELOG.md` is updated under **Unreleased** for user-facing changes
