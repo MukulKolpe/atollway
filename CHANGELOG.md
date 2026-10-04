@@ -37,6 +37,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Deploy script for the hub on Hedera testnet and mainnet.
 - Hub deployed to Hedera testnet ([deployments](docs/deployments.md)).
 - Spoke gateway and spoke token: the asset's mirror on other chains, with the hub's compliance rules, its pause, and a local guardian.
+- Axelar transport adapter, with gas prepaid at a fee set per route ([ADR-0008](docs/adr/0008-axelar-fees.md)).
 
 ### Changed
 
