@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - README rewritten for Atollway.
 - Contracts compile with the Solidity optimizer (200 runs).
+- The Foundry package README documents the hub contracts, testing and deployment.
 
 ### Removed
 
