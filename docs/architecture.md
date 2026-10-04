@@ -2,7 +2,7 @@
 
 Atollway lets an issuer create one tokenized asset on Hedera and offer it on other chains, while compliance, pricing and servicing stay on Hedera.
 
-> **Status:** the hub and the first spoke, on Base Sepolia over Axelar, are deployed to testnet ([deployments](deployments.md)). More spokes come next, in the order shown in the [roadmap](roadmap.md). The decisions behind this design are recorded in [`docs/adr`](adr/README.md).
+> **Status:** the hub and three spokes are deployed to testnet ([deployments](deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over CCIP, and Robinhood Chain over CCIP through the Base relay. The app comes next, in the order shown in the [roadmap](roadmap.md). The decisions behind this design are recorded in [`docs/adr`](adr/README.md).
 
 ## Overview
 
@@ -14,7 +14,7 @@ flowchart LR
     feed[Chainlink HBAR/USD] --> hub
   end
   hub <-->|Axelar| base["Spoke: Base"]
-  hub <-->|Axelar| robinhood["Spoke: Robinhood Chain"]
+  hub <-->|CCIP via Base relay| robinhood["Spoke: Robinhood Chain"]
   hub <-->|CCIP| arbitrum["Spoke: Arbitrum"]
   hub <-->|CCIP via Base relay| canton["Spoke: Canton"]
 ```
@@ -46,7 +46,7 @@ The **hub** on Hedera issues the asset, keeps the investor register and the supp
 | Component | Responsibility |
 | --- | --- |
 | Transport adapter | One per bridge: Axelar General Message Passing or Chainlink CCIP. Sends messages and checks the source of incoming ones before passing them to the hub or a gateway ([ADR-0003](adr/0003-axelar-and-ccip-transports.md)). |
-| Base relay | Forwards CCIP messages between Hedera and chains with no direct CCIP lane to Hedera, such as Canton. |
+| Base relay | Forwards CCIP messages between Hedera and chains with no direct CCIP lane to Hedera, such as Robinhood Chain and Canton. It pays the second hop from its own balance ([ADR-0009](adr/0009-ccip-relay.md)). |
 
 ## Glossary
 
