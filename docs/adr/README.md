@@ -4,7 +4,7 @@ Short records of the decisions that shape Atollway: the context, the decision an
 
 | ADR | Decision | Status |
 | --- | --- | --- |
-| – | No decisions recorded yet | – |
+| [0001](0001-hedera-as-the-hub.md) | Use Hedera as the hub for issuance and servicing | Accepted |
 
 ## Adding a record
 
