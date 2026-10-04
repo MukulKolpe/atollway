@@ -25,7 +25,7 @@ contract InvestorRegisterHarness is InvestorRegister {
     }
 
     function _afterStatusChange(address account, InvestorStatus status, uint64 sequence) internal override {
-        changes.push(Change(account, status, sequence));
+        changes.push(Change({ account: account, status: status, sequence: sequence }));
     }
 }
 

@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `yarn foundry:simulate`: runs the hub against Hedera testnet in mirror node simulations, without spending HBAR.
 - Deploy script for the hub on Hedera testnet and mainnet.
 - Hub deployed to Hedera testnet ([deployments](docs/deployments.md)).
+- Spoke gateway and spoke token: the asset's mirror on other chains, with the hub's compliance rules, its pause, and a local guardian.
 
 ### Changed
 
