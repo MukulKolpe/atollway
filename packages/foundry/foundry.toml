@@ -11,9 +11,10 @@ evm_version = "cancun"
 optimizer = true
 optimizer_runs = 200
 
-# Suppress style lints for API/modifier names we don't control
+# Suppress style lints for API/modifier names we don't control. Public immutables are getters in the ABI,
+# so they keep camelCase names like OpenZeppelin's.
 [lint]
-exclude_lints = ["mixed-case-variable", "mixed-case-function"]
+exclude_lints = ["mixed-case-variable", "mixed-case-function", "screaming-snake-case-immutable"]
 
 [rpc_endpoints]
 localhost = "http://127.0.0.1:8545"

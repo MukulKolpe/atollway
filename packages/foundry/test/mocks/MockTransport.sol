@@ -27,7 +27,7 @@ contract MockTransport is ITransport {
 
     function send(uint64 destinationId, bytes calldata message) external payable {
         if (msg.value != fee) revert WrongFee(fee, msg.value);
-        _sent.push(Sent(destinationId, message, msg.value));
+        _sent.push(Sent({ destinationId: destinationId, message: message, fee: msg.value }));
     }
 
     /// @notice Delivers `message` to `receiver` as if it arrived from `sourceId`.
