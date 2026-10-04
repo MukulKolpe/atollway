@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - CI: contract formatting, size check, build and tests.
 - `template.json` manifest for create-scaffold-hbar (Foundry, Next.js, Yarn).
 - Next steps printed after scaffolding.
+- Chain coverage: routes from Hedera to the top chains, with testnet bridge addresses.
 
 ### Fixed
 
