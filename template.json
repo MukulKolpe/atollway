@@ -1,0 +1,19 @@
+{
+  "name": "atollway",
+  "description": "Issue a tokenized asset on Hedera and hold it on other major chains through Axelar and Chainlink CCIP, with compliance, pricing and payouts kept on Hedera.",
+  "create-scaffold-hbar": {
+    "capabilities": {
+      "frontend": ["nextjs-app"],
+      "solidityFramework": ["foundry"],
+      "packageManager": ["yarn"]
+    },
+    "defaults": {
+      "frontend": "nextjs-app",
+      "solidityFramework": "foundry",
+      "packageManager": "yarn"
+    },
+    "requirements": {
+      "node": ">=20.18.3"
+    }
+  }
+}

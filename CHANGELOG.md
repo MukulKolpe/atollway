@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - This changelog.
 - CI: frontend lint, type-check and build.
 - CI: contract formatting, size check, build and tests.
+- Dependabot updates for GitHub Actions.
+- Dependabot updates for npm packages.
+- `template.json` manifest for create-scaffold-hbar (Foundry, Next.js, Yarn).
 
 ### Security
 
