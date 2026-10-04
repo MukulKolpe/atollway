@@ -4,7 +4,7 @@ Issue a tokenized asset on Hedera, hold it on other major chains, and keep compl
 
 Atollway is a [Scaffold-HBAR](https://docs.hedera.com/solutions/tools/scaffold-hbar) template for tokenized funds, bonds and other real-world assets that live on more than one chain.
 
-> **Status:** in development. The Hedera hub is built and running on testnet ([deployments](docs/deployments.md)); spokes on other chains are next. See the [roadmap](docs/roadmap.md).
+> **Status:** in development. The Hedera hub and the first spoke, on Base Sepolia over Axelar, are running on testnet ([deployments](docs/deployments.md)). More spokes and the app are next. See the [roadmap](docs/roadmap.md).
 
 ## Why Atollway
 
