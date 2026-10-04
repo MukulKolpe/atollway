@@ -5,6 +5,9 @@ import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { AtollwayHub } from "../../contracts/hub/AtollwayHub.sol";
 import { Messages } from "../../contracts/messaging/Messages.sol";
 import { AggregatorV3Interface } from "../../contracts/oracles/AggregatorV3Interface.sol";
+import { AxelarTransport } from "../../contracts/transports/AxelarTransport.sol";
+import { IAxelarGasService } from "../../contracts/transports/axelar/IAxelarGasService.sol";
+import { IAxelarGateway } from "../../contracts/transports/axelar/IAxelarGateway.sol";
 import { MockTransport } from "../mocks/MockTransport.sol";
 
 /// @notice An investor wallet, played by a contract so a whole scenario runs in one simulated call.
@@ -35,9 +38,9 @@ contract SimulatedInvestor {
 /// @notice Runs the hub against the real Hedera Token Service, as one simulated contract deployment on a
 /// Hedera mirror node. Nothing is submitted to the network and no HBAR is spent.
 /// `scripts-js/simulateHub.js` runs every scenario and checks the results.
-/// @dev Scenario 0 runs the main flows and returns `abi.encode(string[] names, uint256[] values)` in place of
-/// runtime code. Every other scenario ends with a call that Hedera must reject, so the whole simulation reverts
-/// with that call's error. Mirror node simulations do not undo the storage writes of a reverted inner call,
+/// @dev Scenarios 0 and 5 return `abi.encode(string[] names, uint256[] values)` in place of runtime code.
+/// Scenario 5 sends messages through the real Axelar gateway and gas service on Hedera. Scenarios 1 to 4 end
+/// with a call that Hedera must reject, so the whole simulation reverts with that call's error. Mirror node simulations do not undo the storage writes of a reverted inner call,
 /// which is why each expected failure runs in a simulation of its own.
 contract HubSimulation {
     uint8 public constant HAPPY_PATH = 0;
@@ -45,6 +48,7 @@ contract HubSimulation {
     uint8 public constant RELEASE_TO_FROZEN = 2;
     uint8 public constant SUBSCRIBE_WHILE_PAUSED = 3;
     uint8 public constant RELEASE_TO_REVOKED = 4;
+    uint8 public constant AXELAR_FROM_HEDERA = 5;
 
     uint64 internal constant SPOKE = 84_532;
     uint256 internal constant BRIDGE_FEE = 1e8;
@@ -58,7 +62,12 @@ contract HubSimulation {
     SimulatedInvestor internal alice;
     SimulatedInvestor internal bob;
 
-    constructor(AggregatorV3Interface hbarUsdFeed, uint8 scenario) payable {
+    constructor(
+        AggregatorV3Interface hbarUsdFeed,
+        IAxelarGateway axelarGateway,
+        IAxelarGasService axelarGasService,
+        uint8 scenario
+    ) payable {
         hub = new AtollwayHub(address(this), hbarUsdFeed, 1 days);
         transport = new MockTransport(BRIDGE_FEE);
         alice = new SimulatedInvestor{ value: 25e8 }();
@@ -93,6 +102,8 @@ contract HubSimulation {
             _release(address(bob), 1);
         } else if (scenario == HAPPY_PATH) {
             _happyPath(shares);
+        } else if (scenario == AXELAR_FROM_HEDERA) {
+            _axelarFromHedera(axelarGateway, axelarGasService, shares);
         }
         revert("unknown scenario");
     }
@@ -118,6 +129,31 @@ contract HubSimulation {
         hub.unpause{ value: BRIDGE_FEE }();
         hub.revokeInvestor{ value: BRIDGE_FEE }(address(bob));
         _record("messages sent to the spoke", transport.sentCount());
+
+        bytes memory result = abi.encode(names, values);
+        assembly {
+            return(add(result, 32), mload(result))
+        }
+    }
+
+    /// @dev Moves the spoke onto a real Axelar adapter, then sends a compliance change and shares through it.
+    function _axelarFromHedera(IAxelarGateway axelarGateway, IAxelarGasService axelarGasService, uint256 shares)
+        internal
+    {
+        AxelarTransport axelar = new AxelarTransport(axelarGateway, axelarGasService, hub, address(this));
+        axelar.setRoute(SPOKE, "base-sepolia", address(0xBA5E), BRIDGE_FEE);
+        hub.setSpokeTransport(SPOKE, axelar);
+
+        uint256 gasServiceBefore = address(axelarGasService).balance;
+        hub.freezeInvestor{ value: BRIDGE_FEE }(address(bob));
+        alice.sendToSpoke(hub, SPOKE, shares / 4, BRIDGE_FEE);
+        _check(
+            address(axelarGasService).balance - gasServiceBefore == 2 * BRIDGE_FEE,
+            "Axelar's gas service received both fees"
+        );
+        _record("HBAR prepaid to Axelar for two messages (tinybars)", 2 * BRIDGE_FEE);
+        (,, uint256 outstanding,) = hub.spokes(SPOKE);
+        _record("outstanding on the spoke", outstanding);
 
         bytes memory result = abi.encode(names, values);
         assembly {

@@ -38,6 +38,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Hub deployed to Hedera testnet ([deployments](docs/deployments.md)).
 - Spoke gateway and spoke token: the asset's mirror on other chains, with the hub's compliance rules, its pause, and a local guardian.
 - Axelar transport adapter, with gas prepaid at a fee set per route ([ADR-0008](docs/adr/0008-axelar-fees.md)).
+- End-to-end tests of the hub and a spoke over Axelar. `yarn foundry:simulate` also checks both Axelar adapters against Axelar's real contracts on Hedera testnet and Base Sepolia.
 
 ### Changed
 

@@ -16,6 +16,12 @@ const MIRROR_NODE_URL =
 // Chainlink HBAR/USD on Hedera testnet.
 const HBAR_USD_FEED =
   process.env.HBAR_USD_FEED || "0x59bC155EB6c6C415fE43255aF66EcF0523c92B4a";
+// Axelar's gateway and gas service on Hedera testnet.
+const AXELAR_GATEWAY =
+  process.env.AXELAR_GATEWAY || "0xe432150cce91c13a887f7D836923d5597adD8E31";
+const AXELAR_GAS_SERVICE =
+  process.env.AXELAR_GAS_SERVICE ||
+  "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6";
 // Any account holding at least 100 HBAR. Simulations never spend it. Defaults to 0.0.2.
 const SIMULATION_FROM =
   process.env.SIMULATION_FROM || "0x0000000000000000000000000000000000000002";
@@ -71,8 +77,8 @@ const hederaCallFailed = new ethers.utils.Interface([
 
 async function simulate(scenario) {
   const args = ethers.utils.defaultAbiCoder.encode(
-    ["address", "uint8"],
-    [HBAR_USD_FEED, scenario]
+    ["address", "address", "address", "uint8"],
+    [HBAR_USD_FEED, AXELAR_GATEWAY, AXELAR_GAS_SERVICE, scenario]
   );
   const response = await fetch(`${MIRROR_NODE_URL}/api/v1/contracts/call`, {
     method: "POST",
@@ -122,20 +128,26 @@ async function main() {
   console.log(`Simulating the hub on ${MIRROR_NODE_URL}\n`);
   let failed = false;
 
-  const happyPath = await simulate(0);
-  if (happyPath.result) {
+  const successScenarios = [
+    { id: 0, name: "Main flows" },
+    { id: 5, name: "Messages to a spoke through Axelar on Hedera" },
+  ];
+  for (const scenario of successScenarios) {
+    const outcome = await simulate(scenario.id);
+    if (!outcome.result) {
+      failed = true;
+      console.log(
+        `❌ ${scenario.name} failed: ${JSON.stringify(describeRevert(outcome))}`
+      );
+      continue;
+    }
     const [names, values] = ethers.utils.defaultAbiCoder.decode(
       ["string[]", "uint256[]"],
-      happyPath.result
+      outcome.result
     );
-    console.log("✅ Main flows: every check passed");
+    console.log(`✅ ${scenario.name}: every check passed`);
     names.forEach((name, i) =>
-      console.log(`   ${name.padEnd(46)} ${values[i].toString()}`)
-    );
-  } else {
-    failed = true;
-    console.log(
-      `❌ Main flows failed: ${JSON.stringify(describeRevert(happyPath))}`
+      console.log(`   ${name.padEnd(52)} ${values[i].toString()}`)
     );
   }
 
