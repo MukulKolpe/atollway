@@ -53,7 +53,7 @@ yarn foundry:simulate
 yarn next:dev
 ```
 
-`yarn foundry:test` runs the contract tests, `yarn foundry:simulate` checks the contracts against Hedera testnet and Base Sepolia without spending anything, and `yarn next:dev` starts the frontend at http://localhost:3000.
+`yarn foundry:test` runs the contract tests, `yarn foundry:simulate` checks the contracts against Hedera testnet and the spoke testnets without spending anything, and `yarn next:dev` starts the frontend at http://localhost:3000.
 
 [CONTRIBUTING.md](CONTRIBUTING.md) lists every command and explains how changes are proposed and reviewed.
 

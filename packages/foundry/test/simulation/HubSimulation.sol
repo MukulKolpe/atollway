@@ -6,6 +6,8 @@ import { AtollwayHub } from "../../contracts/hub/AtollwayHub.sol";
 import { Messages } from "../../contracts/messaging/Messages.sol";
 import { AggregatorV3Interface } from "../../contracts/oracles/AggregatorV3Interface.sol";
 import { AxelarTransport } from "../../contracts/transports/AxelarTransport.sol";
+import { CcipTransport } from "../../contracts/transports/CcipTransport.sol";
+import { IRouterClient } from "../../contracts/transports/ccip/IRouterClient.sol";
 import { IAxelarGasService } from "../../contracts/transports/axelar/IAxelarGasService.sol";
 import { IAxelarGateway } from "../../contracts/transports/axelar/IAxelarGateway.sol";
 import { MockTransport } from "../mocks/MockTransport.sol";
@@ -38,8 +40,9 @@ contract SimulatedInvestor {
 /// @notice Runs the hub against the real Hedera Token Service, as one simulated contract deployment on a
 /// Hedera mirror node. Nothing is submitted to the network and no HBAR is spent.
 /// `scripts-js/simulateHub.js` runs every scenario and checks the results.
-/// @dev Scenarios 0 and 5 return `abi.encode(string[] names, uint256[] values)` in place of runtime code.
-/// Scenario 5 sends messages through the real Axelar gateway and gas service on Hedera. Scenarios 1 to 4 end
+/// @dev Scenarios 0, 5 and 6 return `abi.encode(string[] names, uint256[] values)` in place of runtime code.
+/// Scenario 5 sends messages through the real Axelar gateway and gas service on Hedera, scenario 6 through the
+/// real Chainlink CCIP router. Scenarios 1 to 4 end
 /// with a call that Hedera must reject, so the whole simulation reverts with that call's error. Mirror node simulations do not undo the storage writes of a reverted inner call,
 /// which is why each expected failure runs in a simulation of its own.
 contract HubSimulation {
@@ -49,8 +52,13 @@ contract HubSimulation {
     uint8 public constant SUBSCRIBE_WHILE_PAUSED = 3;
     uint8 public constant RELEASE_TO_REVOKED = 4;
     uint8 public constant AXELAR_FROM_HEDERA = 5;
+    uint8 public constant CCIP_FROM_HEDERA = 6;
 
     uint64 internal constant SPOKE = 84_532;
+    uint64 internal constant ARBITRUM = 421_614;
+    uint64 internal constant ROBINHOOD = 46_630;
+    uint64 internal constant ARBITRUM_SELECTOR = 3_478_487_238_524_512_106;
+    uint64 internal constant BASE_SELECTOR = 10_344_971_235_874_465_080;
     uint256 internal constant BRIDGE_FEE = 1e8;
 
     string[] internal names;
@@ -66,6 +74,7 @@ contract HubSimulation {
         AggregatorV3Interface hbarUsdFeed,
         IAxelarGateway axelarGateway,
         IAxelarGasService axelarGasService,
+        IRouterClient ccipRouter,
         uint8 scenario
     ) payable {
         hub = new AtollwayHub(address(this), hbarUsdFeed, 1 days);
@@ -104,6 +113,8 @@ contract HubSimulation {
             _happyPath(shares);
         } else if (scenario == AXELAR_FROM_HEDERA) {
             _axelarFromHedera(axelarGateway, axelarGasService, shares);
+        } else if (scenario == CCIP_FROM_HEDERA) {
+            _ccipFromHedera(ccipRouter, shares);
         }
         revert("unknown scenario");
     }
@@ -154,6 +165,32 @@ contract HubSimulation {
         _record("HBAR prepaid to Axelar for two messages (tinybars)", 2 * BRIDGE_FEE);
         (,, uint256 outstanding,) = hub.spokes(SPOKE);
         _record("outstanding on the spoke", outstanding);
+
+        bytes memory result = abi.encode(names, values);
+        assembly {
+            return(add(result, 32), mload(result))
+        }
+    }
+
+    /// @dev Adds Arbitrum Sepolia over CCIP and Robinhood Chain through a relay on Base, then sends a compliance
+    /// change to every spoke and shares to each CCIP spoke, paying the router's quoted fees.
+    function _ccipFromHedera(IRouterClient ccipRouter, uint256 shares) internal {
+        CcipTransport ccip = new CcipTransport(ccipRouter, hub, 296, address(this));
+        ccip.setRoute(ARBITRUM, ARBITRUM_SELECTOR, address(0xA4B1), 200_000);
+        ccip.setRoute(ROBINHOOD, BASE_SELECTOR, address(0x4E1A), 300_000);
+        hub.addSpoke(ARBITRUM, ccip, 1_000e6);
+        hub.addSpoke(ROBINHOOD, ccip, 1_000e6);
+
+        hub.freezeInvestor{ value: hub.quoteComplianceBroadcast() }(address(bob));
+        uint256 toArbitrum = hub.quoteSendToSpoke(ARBITRUM);
+        uint256 toBase = hub.quoteSendToSpoke(ROBINHOOD);
+        alice.sendToSpoke(hub, ARBITRUM, shares / 8, toArbitrum);
+        alice.sendToSpoke(hub, ROBINHOOD, shares / 8, toBase);
+        _check(toArbitrum > 0 && toBase > 0, "the CCIP router quoted both lanes");
+        _record("CCIP fee to Arbitrum Sepolia, per message (tinybars)", toArbitrum);
+        _record("CCIP fee to the Base relay, per message (tinybars)", toBase);
+        (,, uint256 outstanding,) = hub.spokes(ROBINHOOD);
+        _record("outstanding on Robinhood Chain", outstanding);
 
         bytes memory result = abi.encode(names, values);
         assembly {

@@ -43,6 +43,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - First spoke deployed to Base Sepolia and connected to the hub over Axelar ([deployments](docs/deployments.md)).
 - Chainlink CCIP transport adapter, paying the router's quoted fee in the native token.
 - CCIP relay on Base Sepolia for chains with no CCIP lane to Hedera ([ADR-0009](docs/adr/0009-ccip-relay.md)).
+- A test of one hub with three spokes over two bridges. `yarn foundry:simulate` also checks the CCIP adapter and the relay against Chainlink's real routers on Hedera testnet, Base Sepolia, Arbitrum Sepolia and Robinhood Chain testnet.
 
 ### Changed
 
