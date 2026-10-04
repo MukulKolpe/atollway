@@ -12,15 +12,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - EditorConfig, a root .gitignore and a pinned Node.js version.
 - Foundry and Next.js monorepo based on the Scaffold-HBAR `blank` template ([`b2a23f5`](https://github.com/hedera-dev/scaffold-hbar/tree/b2a23f5ff274200174a9d0a4e23b1968663d6ba8)), with Solidity libraries pinned as submodules.
 - Pre-commit hook with Husky and lint-staged.
-- Agent briefing (AGENTS.md) and agent skills from the Scaffold-HBAR template.
 - Contributing guide, code of conduct, security policy and code owners.
 - This changelog.
 - CI: frontend lint, type-check and build.
 - CI: contract formatting, size check, build and tests.
-- Dependabot updates for GitHub Actions.
-- Dependabot updates for npm packages.
 - `template.json` manifest for create-scaffold-hbar (Foundry, Next.js, Yarn).
 - Next steps printed after scaffolding.
+
+### Fixed
+
+- The root `.gitignore` ignores `.env`, so a root environment file cannot be committed by mistake.
 
 ### Security
 
