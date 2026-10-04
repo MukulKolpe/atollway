@@ -8,6 +8,7 @@ Short records of the decisions that shape Atollway: the context, the decision an
 | [0002](0002-hts-asset-token.md) | Issue the asset as a Hedera Token Service token | Accepted |
 | [0003](0003-axelar-and-ccip-transports.md) | Connect chains through Axelar and Chainlink CCIP | Accepted |
 | [0004](0004-evm-address-identity.md) | Identify investors by the same EVM address on every chain | Accepted |
+| [0005](0005-spoke-supply-caps.md) | Cap the supply each spoke can hold | Accepted |
 
 ## Adding a record
 
