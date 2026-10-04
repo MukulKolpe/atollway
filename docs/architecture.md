@@ -2,7 +2,7 @@
 
 Atollway lets an issuer create one tokenized asset on Hedera and offer it on other chains, while compliance, pricing and servicing stay on Hedera.
 
-> **Status:** design. The contracts are being built in the order shown in the [roadmap](roadmap.md). The decisions behind this design are recorded in [`docs/adr`](adr/README.md).
+> **Status:** the hub is built and deployed to Hedera testnet ([deployments](deployments.md)). Spokes are next, in the order shown in the [roadmap](roadmap.md). The decisions behind this design are recorded in [`docs/adr`](adr/README.md).
 
 ## Overview
 
