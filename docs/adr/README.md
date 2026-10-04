@@ -5,6 +5,7 @@ Short records of the decisions that shape Atollway: the context, the decision an
 | ADR | Decision | Status |
 | --- | --- | --- |
 | [0001](0001-hedera-as-the-hub.md) | Use Hedera as the hub for issuance and servicing | Accepted |
+| [0002](0002-hts-asset-token.md) | Issue the asset as a Hedera Token Service token | Accepted |
 
 ## Adding a record
 
