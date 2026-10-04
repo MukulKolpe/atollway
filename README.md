@@ -32,6 +32,28 @@ flowchart LR
 
 The [architecture document](docs/architecture.md) covers the components, message flows, trust model and failure modes. [Chain coverage](docs/chains.md) lists the chains a spoke can run on, and the [decision records](docs/adr/README.md) explain why the design looks the way it does.
 
+## Getting started
+
+Atollway is not released yet. Once it is, create a project from it with:
+
+```bash
+npm create scaffold-hbar@latest -- --template MukulKolpe/atollway
+```
+
+## Development
+
+You need Node.js 22 (`nvm use` picks it from `.nvmrc`), Yarn, [Foundry](https://getfoundry.sh) and Git.
+
+```bash
+git clone --recurse-submodules https://github.com/MukulKolpe/atollway.git
+cd atollway
+yarn install
+yarn foundry:test   # contract tests
+yarn next:dev       # frontend at http://localhost:3000
+```
+
+[CONTRIBUTING.md](CONTRIBUTING.md) lists every command and explains how changes are proposed and reviewed.
+
 ## Documentation
 
 | Document | What it covers |
@@ -41,6 +63,10 @@ The [architecture document](docs/architecture.md) covers the components, message
 | [Chain coverage](docs/chains.md) | Where spokes can run, with testnet bridge addresses |
 | [Roadmap](docs/roadmap.md) | Milestones and their status |
 | [Changelog](CHANGELOG.md) | What changed, release by release |
+
+## Security
+
+The contracts are unaudited. Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 ## License
 
