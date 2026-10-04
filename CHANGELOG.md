@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - A Foundry mock of the Hedera Token Service that returns Hedera's response codes.
 - Solidity helpers that call the Hedera Token Service and revert with Hedera's response code on failure.
 - Hub: creates the asset as an HTS token, with the hub as treasury and holder of its KYC, freeze, wipe, supply and pause keys.
+- Hub: investor register to approve and revoke investors.
 
 ### Changed
 
