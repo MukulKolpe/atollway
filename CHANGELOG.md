@@ -50,6 +50,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - The root `.gitignore` ignores `.env`, so a root environment file cannot be committed by mistake.
+- Shell commands in the READMEs no longer contain comments, which zsh passes to the command when pasted.
 
 ### Security
 

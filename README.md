@@ -48,10 +48,12 @@ You need Node.js 22 (`nvm use` picks it from `.nvmrc`), Yarn, [Foundry](https://
 git clone --recurse-submodules https://github.com/MukulKolpe/atollway.git
 cd atollway
 yarn install
-yarn foundry:test       # contract tests
-yarn foundry:simulate   # the hub on Hedera testnet, without spending HBAR
-yarn next:dev           # frontend at http://localhost:3000
+yarn foundry:test
+yarn foundry:simulate
+yarn next:dev
 ```
+
+`yarn foundry:test` runs the contract tests, `yarn foundry:simulate` runs the hub against Hedera testnet without spending HBAR, and `yarn next:dev` starts the frontend at http://localhost:3000.
 
 [CONTRIBUTING.md](CONTRIBUTING.md) lists every command and explains how changes are proposed and reviewed.
 

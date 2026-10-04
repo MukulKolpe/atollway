@@ -66,47 +66,56 @@ Why the project tests this way is recorded in [ADR-0007](../../docs/adr/0007-hts
 
 ## Deploying to Hedera testnet
 
-You need a Hedera testnet account with an ECDSA key and about 50 HBAR from the [Hedera portal faucet](https://portal.hedera.com/faucet), imported into a Foundry keystore with `yarn foundry:account:import`.
-
-**1. Deploy the hub.** The deployer becomes the issuer.
+You need two Hedera testnet accounts with ECDSA keys, one for the issuer and one for an investor. Create them in the [Hedera portal](https://portal.hedera.com), or fund any EVM address from the [faucet](https://portal.hedera.com/faucet). Import each private key into a Foundry keystore:
 
 ```bash
-export KEYSTORE=my-keystore   # replace with your keystore's name
-yarn foundry:deploy --network hedera_testnet --keystore $KEYSTORE
+yarn foundry:account:import atollway-issuer
+yarn foundry:account:import atollway-investor
 ```
 
-The script prints the hub's address and writes it, with the ABI, to the Next.js app.
+One account can play both roles: use the same keystore name everywhere below.
 
-**2. Set up the asset.** The hub calls the Hedera Token Service, which Forge scripts cannot simulate, so these steps use `cast`. Each command asks for the keystore password.
+**1. Deploy the hub.** The deployer becomes the issuer. The script prints the hub's address and writes it, with the ABI, to the Next.js app.
+
+```bash
+yarn foundry:deploy --network hedera_testnet --keystore atollway-issuer
+```
+
+**2. Set up the asset as the issuer.** The hub calls the Hedera Token Service, which Forge scripts cannot simulate, so the next steps use `cast`. Each `cast send` asks for the keystore password. Load the hub's address and the network first:
 
 ```bash
 export HUB=$(node -p 'Object.entries(require("./packages/foundry/deployments/296.json")).find(([, name]) => name === "AtollwayHub")[0]')
-export ME=$(cast wallet address --account $KEYSTORE)
 export RPC=https://testnet.hashio.io/api
-
-# Create the asset token. 20 HBAR covers the creation fee; the rest is returned.
-cast send $HUB "createAsset(string,string,uint8,string)" "Atollway Demo Fund" "ATLD" 6 "Atollway testnet demo" \
-  --value 20ether --account $KEYSTORE --rpc-url $RPC
-export TOKEN=$(cast call $HUB "asset()(address)" --rpc-url $RPC)
-
-# Open subscriptions at 1 US dollar per share.
-cast send $HUB "setNav(uint256)" 100000000 --account $KEYSTORE --rpc-url $RPC
 ```
 
-On Hedera, `--value` uses 18 decimals like Ethereum, so `20ether` is 20 HBAR.
-
-**3. Subscribe as an investor.** Associate with the token, get approved, then buy shares.
+Create the asset token. 20 HBAR covers the creation fee and the unused part is returned. On Hedera, `--value` uses 18 decimals like Ethereum, so `20ether` is 20 HBAR.
 
 ```bash
-cast send $TOKEN "associate()" --account $KEYSTORE --rpc-url $RPC
-cast send $HUB "approveInvestor(address)" $ME --account $KEYSTORE --rpc-url $RPC
-cast send $HUB "subscribe(uint256)" 0 --value 10ether --account $KEYSTORE --rpc-url $RPC
-cast call $TOKEN "balanceOf(address)(uint256)" $ME --rpc-url $RPC
+cast send $HUB "createAsset(string,string,uint8,string)" "Atollway Demo Fund" "ATLD" 6 "Atollway testnet demo" --value 20ether --account atollway-issuer --rpc-url $RPC
+export TOKEN=$(cast call $HUB "asset()(address)" --rpc-url $RPC)
 ```
 
-Every transaction can be opened on HashScan at `https://hashscan.io/testnet/tx/<transaction hash>`.
+Open subscriptions at 1 US dollar per share. The NAV has 8 decimals.
 
-**4. Verify the source** on Sourcify, so HashScan shows it:
+```bash
+cast send $HUB "setNav(uint256)" 100000000 --account atollway-issuer --rpc-url $RPC
+```
+
+**3. Subscribe as the investor.** The investor associates with the token, the issuer approves them, and the investor buys shares with 10 HBAR.
+
+```bash
+export INVESTOR=$(cast wallet address --account atollway-investor)
+cast send $TOKEN "associate()" --account atollway-investor --rpc-url $RPC
+cast send $HUB "approveInvestor(address)" $INVESTOR --account atollway-issuer --rpc-url $RPC
+cast send $HUB "subscribe(uint256)" 0 --value 10ether --account atollway-investor --rpc-url $RPC
+cast call $TOKEN "balanceOf(address)(uint256)" $INVESTOR --rpc-url $RPC
+```
+
+The balance has 6 decimals, so `1015000` is 1.015 shares. Every transaction can be opened on HashScan at `https://hashscan.io/testnet/tx/<transaction hash>`.
+
+Run each command once. A transaction that already succeeded fails when repeated, for example approving an investor twice reverts with `InvalidStatusChange`.
+
+**4. Verify the source** on Sourcify, so HashScan shows it. This publishes the contract source.
 
 ```bash
 yarn foundry:verify:testnet $HUB contracts/hub/AtollwayHub.sol:AtollwayHub
