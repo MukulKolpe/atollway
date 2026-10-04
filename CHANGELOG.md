@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - CCIP relay on Base Sepolia for chains with no CCIP lane to Hedera ([ADR-0009](docs/adr/0009-ccip-relay.md)).
 - A test of one hub with three spokes over two bridges. `yarn foundry:simulate` also checks the CCIP adapter and the relay against Chainlink's real routers on Hedera testnet, Base Sepolia, Arbitrum Sepolia and Robinhood Chain testnet.
 - Scripts to deploy spokes over Chainlink CCIP, directly or through the relay, and to connect them to the hub.
+- Spokes on Arbitrum Sepolia over Chainlink CCIP and on Robinhood Chain testnet through the CCIP relay ([deployments](docs/deployments.md)).
 
 ### Changed
 
