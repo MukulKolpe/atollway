@@ -29,11 +29,15 @@
               "command": "{run:framework:account:generate}"
             },
             {
+              "label": "Deploy the hub to Hedera testnet",
+              "command": "{run:framework:deploy} --network hedera_testnet"
+            },
+            {
               "label": "Start the frontend",
               "command": "{run:next:dev}"
             },
             {
-              "text": "Atollway is in early development. The README has the current walkthrough."
+              "text": "packages/foundry/README.md shows how to create the asset and subscribe on testnet."
             }
           ]
         }

@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Hub: send shares to a spoke and release shares returned from one.
 - `AtollwayHub`, which combines the hub modules and sends compliance changes and pauses to every spoke.
 - `yarn foundry:simulate`: runs the hub against Hedera testnet in mirror node simulations, without spending HBAR.
+- Deploy script for the hub on Hedera testnet and mainnet.
 
 ### Changed
 
