@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - README rewritten for Atollway.
+- Contracts compile with the Solidity optimizer (200 runs).
 
 ### Removed
 
