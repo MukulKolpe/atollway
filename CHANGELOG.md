@@ -23,6 +23,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Architecture decision records in `docs/adr`.
 - Architecture document: components, message flows, trust model and failure modes.
 
+### Changed
+
+- README rewritten for Atollway.
+
 ### Fixed
 
 - The root `.gitignore` ignores `.env`, so a root environment file cannot be committed by mistake.
