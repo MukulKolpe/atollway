@@ -12,10 +12,11 @@ Short records of the decisions that shape Atollway: the context, the decision an
 | [0006](0006-association-before-approval.md) | Require token association before approving an investor | Accepted |
 | [0007](0007-hts-mock-and-simulation.md) | Test the hub with an HTS mock and mirror node simulations | Accepted |
 | [0008](0008-axelar-fees.md) | Prepay Axelar gas with a fee set per route | Accepted |
+| [0009](0009-ccip-relay.md) | Reach chains without a CCIP lane to Hedera through a relay on Base | Accepted |
 
 ## Adding a record
 
-1. Copy [`0000-template.md`](0000-template.md) to the next free number, for example `0009-use-x-for-y.md`.
+1. Copy [`0000-template.md`](0000-template.md) to the next free number, for example `0010-use-x-for-y.md`.
 2. Fill in the context, decision, consequences and alternatives. Keep it to about a page.
 3. Add it to the table above and open a pull request. The record is **Proposed** while the pull request is open and **Accepted** once it merges.
 4. To change an accepted decision, write a new record and set the old record's status to **Superseded by ADR-XXXX**. If the new record changes only part of the old one, set the old record's status to **Accepted, amended by ADR-XXXX** instead.
