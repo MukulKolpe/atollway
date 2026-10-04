@@ -62,6 +62,7 @@ yarn next:dev           # frontend at http://localhost:3000
 | [Architecture](docs/architecture.md) | Components, message flows, trust model, failure modes |
 | [Decision records](docs/adr/README.md) | Why the design looks the way it does |
 | [Chain coverage](docs/chains.md) | Where spokes can run, with testnet bridge addresses |
+| [Contracts](packages/foundry/README.md) | The hub contracts, tests, simulation and deployment |
 | [Roadmap](docs/roadmap.md) | Milestones and their status |
 | [Changelog](CHANGELOG.md) | What changed, release by release |
 
