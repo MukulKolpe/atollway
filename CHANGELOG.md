@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Hub: subscriptions in HBAR at the NAV, with slippage protection.
 - Cross-chain message envelope for compliance, mint, release and pause messages.
 - Transport adapter interface, so Axelar and Chainlink CCIP adapters are interchangeable.
+- Hub: spoke registry with transport adapters and supply caps.
 
 ### Changed
 
