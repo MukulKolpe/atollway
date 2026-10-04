@@ -3,7 +3,7 @@ pragma solidity ^0.8.28;
 
 import { Test } from "forge-std/Test.sol";
 import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
-import { IMessageReceiver } from "../../contracts/messaging/ITransport.sol";
+import { IMessageReceiver, ITransport } from "../../contracts/messaging/ITransport.sol";
 import { AxelarTransport } from "../../contracts/transports/AxelarTransport.sol";
 import { MockAxelarGasService, MockAxelarGateway } from "../mocks/MockAxelar.sol";
 
@@ -18,7 +18,7 @@ contract RecordingReceiver is IMessageReceiver {
         received++;
     }
 
-    function send(AxelarTransport transport, uint64 destinationId, bytes calldata message) external payable {
+    function send(ITransport transport, uint64 destinationId, bytes calldata message) external payable {
         transport.send{ value: msg.value }(destinationId, message);
     }
 }

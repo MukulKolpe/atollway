@@ -41,6 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - End-to-end tests of the hub and a spoke over Axelar. `yarn foundry:simulate` also checks both Axelar adapters against Axelar's real contracts on Hedera testnet and Base Sepolia.
 - Scripts to deploy a spoke on Base Sepolia and connect it to the hub over Axelar.
 - First spoke deployed to Base Sepolia and connected to the hub over Axelar ([deployments](docs/deployments.md)).
+- Chainlink CCIP transport adapter, paying the router's quoted fee in the native token.
 
 ### Changed
 
