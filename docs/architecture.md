@@ -137,3 +137,25 @@ sequenceDiagram
   H->>H: outstanding[spoke] -= amount
   H->>V: mint and deliver shares on Hedera
 ```
+
+## Trust model
+
+| Party | Trusted for | If it fails or misbehaves |
+| --- | --- | --- |
+| Issuer | Approving investors, setting the NAV and caps, pausing | The issuer controls the asset by design. In production, use a multisig or a Hedera threshold key. |
+| Hedera network | Token rules, ordering, scheduled execution | Atollway inherits Hedera's security. |
+| Bridge (Axelar or CCIP) | Delivering authentic messages between the hub and spokes | A forged message can mint at most the remaining cap on spokes bound to that bridge, or release on Hedera at most those spokes' outstanding amounts ([ADR-0005](adr/0005-spoke-supply-caps.md)). |
+| Chainlink price feed | The HBAR/USD price | A wrong price mis-prices subscriptions. Subscriptions stop when the feed is older than the configured limit. |
+
+## Failure modes
+
+| Situation | What happens | Mitigation |
+| --- | --- | --- |
+| A compliance message is delayed | A revoked investor can still move tokens on that spoke until the message arrives, usually within minutes. | For urgent cases, the spoke's local guardian pauses the spoke immediately, without waiting for the bridge. |
+| Messages arrive out of order | An older compliance status could overwrite a newer one. | Compliance messages carry a per-investor sequence number, and spokes ignore older ones. |
+| A message is delivered twice | A transfer could be applied twice. | The hub and every spoke accept each transfer ID once. |
+| A message is never delivered | Shares burned on Hedera are recorded as outstanding but not yet minted on the spoke. | Nothing is lost: the hub's ledger still holds the amount, and anyone can retry execution from Axelarscan or the CCIP Explorer. |
+| A bridge is compromised | Forged `MINT` or `RELEASE` messages arrive. | Supply caps limit the damage. The issuer pauses the hub and the affected spokes and unregisters the adapter. |
+| The price feed is stale | Subscriptions would use an old price. | The hub rejects subscriptions while the feed is older than the configured limit. |
+
+The contracts are unaudited. See [SECURITY.md](../SECURITY.md) before using them with real assets.
