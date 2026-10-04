@@ -1341,6 +1341,538 @@ const deployedContracts = {
       inheritedFunctions: {},
       deployedOnBlock: 41351644,
     },
+    CcipTransport: {
+      address: "0x9b054e7422c0c359f50cde4d81097f810c8e0f36",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "router_",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+            {
+              name: "receiver_",
+              type: "address",
+              internalType: "contract IMessageReceiver",
+            },
+            {
+              name: "localId_",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "owner_",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "ccipReceive",
+          inputs: [
+            {
+              name: "message",
+              type: "tuple",
+              internalType: "struct Client.Any2EVMMessage",
+              components: [
+                {
+                  name: "messageId",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+                {
+                  name: "sourceChainSelector",
+                  type: "uint64",
+                  internalType: "uint64",
+                },
+                {
+                  name: "sender",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "data",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "destTokenAmounts",
+                  type: "tuple[]",
+                  internalType: "struct Client.EVMTokenAmount[]",
+                  components: [
+                    {
+                      name: "token",
+                      type: "address",
+                      internalType: "address",
+                    },
+                    {
+                      name: "amount",
+                      type: "uint256",
+                      internalType: "uint256",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "localId",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quote",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "receiver",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IMessageReceiver",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "router",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "routes",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          outputs: [
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "send",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "setRoute",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "supportsInterface",
+          inputs: [
+            {
+              name: "interfaceId",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "MessageReceived",
+          inputs: [
+            {
+              name: "messageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "originId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "MessageSent",
+          inputs: [
+            {
+              name: "messageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "destinationId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "fee",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "RouteSet",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientFee",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "provided",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotReceiver",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotRouter",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownEndpoint",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSender",
+          inputs: [
+            {
+              name: "originId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sourceChainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sender",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "WrongDestination",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 41360974,
+    },
     AxelarTransport: {
       address: "0xac7754ca61caf11fcf0f3692acd1b26407d7ce38",
       abi: [
@@ -1785,7 +2317,1730 @@ const deployedContracts = {
       deployedOnBlock: 41355274,
     },
   },
+  46630: {
+    SpokeGateway: {
+      address: "0x0e112cc69f80cc570336c2060dc911fb757e6b74",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "issuer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "hubId_",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "symbol",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "decimals",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "guardian",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "guardianPaused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "hubId",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "hubPaused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isApproved",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "minted",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pause",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "paused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quoteSendToHub",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "receiveMessage",
+          inputs: [
+            {
+              name: "sourceId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "sendToHub",
+          inputs: [
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "sequenceOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "setGuardian",
+          inputs: [
+            {
+              name: "newGuardian",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setTransport",
+          inputs: [
+            {
+              name: "newTransport",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "statusOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "enum InvestorStatus",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "token",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract SpokeToken",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferCount",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "transport",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "unpause",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "GuardianPausedChanged",
+          inputs: [
+            {
+              name: "paused",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "GuardianUpdated",
+          inputs: [
+            {
+              name: "guardian",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "HubPausedChanged",
+          inputs: [
+            {
+              name: "paused",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "MintedFromHub",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "SentToHub",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "StaleStatusIgnored",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "status",
+              type: "uint8",
+              indexed: false,
+              internalType: "enum InvestorStatus",
+            },
+            {
+              name: "sequence",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "StatusApplied",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "status",
+              type: "uint8",
+              indexed: false,
+              internalType: "enum InvestorStatus",
+            },
+            {
+              name: "sequence",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "TransportUpdated",
+          inputs: [
+            {
+              name: "transport",
+              type: "address",
+              indexed: false,
+              internalType: "contract ITransport",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "AlreadyMinted",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientFee",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "provided",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotATransferKind",
+          inputs: [
+            {
+              name: "kind",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotApproved",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotGuardian",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotTransport",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ReentrancyGuardReentrantCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "SpokePaused",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "TransportNotSet",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "UnexpectedMessage",
+          inputs: [
+            {
+              name: "kind",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSource",
+          inputs: [
+            {
+              name: "sourceId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnsupportedVersion",
+          inputs: [
+            {
+              name: "version",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ZeroAmount",
+          inputs: [],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 128885435,
+    },
+    CcipTransport: {
+      address: "0x3226c46c98c7558e555779bb639d7f4c4caa1e32",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "router_",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+            {
+              name: "receiver_",
+              type: "address",
+              internalType: "contract IMessageReceiver",
+            },
+            {
+              name: "localId_",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "owner_",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "ccipReceive",
+          inputs: [
+            {
+              name: "message",
+              type: "tuple",
+              internalType: "struct Client.Any2EVMMessage",
+              components: [
+                {
+                  name: "messageId",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+                {
+                  name: "sourceChainSelector",
+                  type: "uint64",
+                  internalType: "uint64",
+                },
+                {
+                  name: "sender",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "data",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "destTokenAmounts",
+                  type: "tuple[]",
+                  internalType: "struct Client.EVMTokenAmount[]",
+                  components: [
+                    {
+                      name: "token",
+                      type: "address",
+                      internalType: "address",
+                    },
+                    {
+                      name: "amount",
+                      type: "uint256",
+                      internalType: "uint256",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "localId",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quote",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "receiver",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IMessageReceiver",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "router",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "routes",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          outputs: [
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "send",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "setRoute",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "supportsInterface",
+          inputs: [
+            {
+              name: "interfaceId",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "MessageReceived",
+          inputs: [
+            {
+              name: "messageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "originId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "MessageSent",
+          inputs: [
+            {
+              name: "messageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "destinationId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "fee",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "RouteSet",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientFee",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "provided",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotReceiver",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotRouter",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownEndpoint",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSender",
+          inputs: [
+            {
+              name: "originId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sourceChainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sender",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "WrongDestination",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 128885455,
+    },
+  },
   84532: {
+    CcipRelay: {
+      address: "0x26dcc02052bfff0572abf19b895815a25aa73d42",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "router_",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+            {
+              name: "owner_",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "receive",
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "ccipReceive",
+          inputs: [
+            {
+              name: "message",
+              type: "tuple",
+              internalType: "struct Client.Any2EVMMessage",
+              components: [
+                {
+                  name: "messageId",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+                {
+                  name: "sourceChainSelector",
+                  type: "uint64",
+                  internalType: "uint64",
+                },
+                {
+                  name: "sender",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "data",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "destTokenAmounts",
+                  type: "tuple[]",
+                  internalType: "struct Client.EVMTokenAmount[]",
+                  components: [
+                    {
+                      name: "token",
+                      type: "address",
+                      internalType: "address",
+                    },
+                    {
+                      name: "amount",
+                      type: "uint256",
+                      internalType: "uint256",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quoteForward",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "payload",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "router",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "routes",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          outputs: [
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "setRoute",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "supportsInterface",
+          inputs: [
+            {
+              name: "interfaceId",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "withdraw",
+          inputs: [
+            {
+              name: "to",
+              type: "address",
+              internalType: "address payable",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Relayed",
+          inputs: [
+            {
+              name: "inboundMessageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "outboundMessageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "originId",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+            {
+              name: "destinationId",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+            {
+              name: "fee",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "RouteSet",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotRouter",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownEndpoint",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSender",
+          inputs: [
+            {
+              name: "originId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sourceChainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sender",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 47689068,
+    },
     SpokeGateway: {
       address: "0x0e112cc69f80cc570336c2060dc911fb757e6b74",
       abi: [
@@ -2946,6 +5201,1258 @@ const deployedContracts = {
       ],
       inheritedFunctions: {},
       deployedOnBlock: 47683257,
+    },
+  },
+  421614: {
+    SpokeGateway: {
+      address: "0x0e112cc69f80cc570336c2060dc911fb757e6b74",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "issuer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "hubId_",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "symbol",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "decimals",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "guardian",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "guardianPaused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "hubId",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "hubPaused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isApproved",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "minted",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pause",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "paused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quoteSendToHub",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "receiveMessage",
+          inputs: [
+            {
+              name: "sourceId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "sendToHub",
+          inputs: [
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "sequenceOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "setGuardian",
+          inputs: [
+            {
+              name: "newGuardian",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setTransport",
+          inputs: [
+            {
+              name: "newTransport",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "statusOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "enum InvestorStatus",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "token",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract SpokeToken",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferCount",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "transport",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "unpause",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "GuardianPausedChanged",
+          inputs: [
+            {
+              name: "paused",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "GuardianUpdated",
+          inputs: [
+            {
+              name: "guardian",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "HubPausedChanged",
+          inputs: [
+            {
+              name: "paused",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "MintedFromHub",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "SentToHub",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "StaleStatusIgnored",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "status",
+              type: "uint8",
+              indexed: false,
+              internalType: "enum InvestorStatus",
+            },
+            {
+              name: "sequence",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "StatusApplied",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "status",
+              type: "uint8",
+              indexed: false,
+              internalType: "enum InvestorStatus",
+            },
+            {
+              name: "sequence",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "TransportUpdated",
+          inputs: [
+            {
+              name: "transport",
+              type: "address",
+              indexed: false,
+              internalType: "contract ITransport",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "AlreadyMinted",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientFee",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "provided",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotATransferKind",
+          inputs: [
+            {
+              name: "kind",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotApproved",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotGuardian",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotTransport",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ReentrancyGuardReentrantCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "SpokePaused",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "TransportNotSet",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "UnexpectedMessage",
+          inputs: [
+            {
+              name: "kind",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSource",
+          inputs: [
+            {
+              name: "sourceId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnsupportedVersion",
+          inputs: [
+            {
+              name: "version",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ZeroAmount",
+          inputs: [],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 315790847,
+    },
+    CcipTransport: {
+      address: "0x3226c46c98c7558e555779bb639d7f4c4caa1e32",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "router_",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+            {
+              name: "receiver_",
+              type: "address",
+              internalType: "contract IMessageReceiver",
+            },
+            {
+              name: "localId_",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "owner_",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "ccipReceive",
+          inputs: [
+            {
+              name: "message",
+              type: "tuple",
+              internalType: "struct Client.Any2EVMMessage",
+              components: [
+                {
+                  name: "messageId",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+                {
+                  name: "sourceChainSelector",
+                  type: "uint64",
+                  internalType: "uint64",
+                },
+                {
+                  name: "sender",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "data",
+                  type: "bytes",
+                  internalType: "bytes",
+                },
+                {
+                  name: "destTokenAmounts",
+                  type: "tuple[]",
+                  internalType: "struct Client.EVMTokenAmount[]",
+                  components: [
+                    {
+                      name: "token",
+                      type: "address",
+                      internalType: "address",
+                    },
+                    {
+                      name: "amount",
+                      type: "uint256",
+                      internalType: "uint256",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "localId",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quote",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "receiver",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IMessageReceiver",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "router",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract IRouterClient",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "routes",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          outputs: [
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "send",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "setRoute",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "supportsInterface",
+          inputs: [
+            {
+              name: "interfaceId",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "pure",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "MessageReceived",
+          inputs: [
+            {
+              name: "messageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "originId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "MessageSent",
+          inputs: [
+            {
+              name: "messageId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "destinationId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "fee",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "RouteSet",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "chainSelector",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+            {
+              name: "peer",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+            {
+              name: "gasLimit",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientFee",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "provided",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotReceiver",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotRouter",
+          inputs: [
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownEndpoint",
+          inputs: [
+            {
+              name: "endpointId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSender",
+          inputs: [
+            {
+              name: "originId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sourceChainSelector",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "sender",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "WrongDestination",
+          inputs: [
+            {
+              name: "destinationId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 315790861,
     },
   },
 } as const;
