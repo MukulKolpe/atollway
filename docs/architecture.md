@@ -58,3 +58,82 @@ The **hub** on Hedera issues the asset, keeps the investor register and the supp
 | Cap | The maximum outstanding amount the hub allows for a spoke. |
 | NAV | Net asset value per share, in US dollars, set by the issuer. |
 | Transfer ID | A unique identifier for one movement of supply between Hedera and a spoke. |
+
+## Message flows
+
+Every cross-chain message uses the same envelope: a format `version` (currently 1), a message `kind`, and a kind-specific `payload`.
+
+| Kind | Direction | Payload | Effect on arrival |
+| --- | --- | --- | --- |
+| `COMPLIANCE` | hub → spoke | account, status, sequence | The spoke records the investor's new status if the sequence is newer than the last one it applied for that investor. |
+| `MINT` | hub → spoke | transfer ID, recipient, amount | The spoke mints to the recipient, once per transfer ID. |
+| `RELEASE` | spoke → hub | transfer ID, recipient, amount | The hub releases shares on Hedera, once per transfer ID and up to the spoke's outstanding amount. |
+| `PAUSE` | hub → spoke | paused flag | The spoke stops or resumes transfers. |
+
+Whoever starts a flow pays the bridge fee in the source chain's native token: the issuer for compliance and pause messages, the investor for transfers.
+
+### Approving an investor
+
+```mermaid
+sequenceDiagram
+  participant I as Issuer
+  participant H as Hub (Hedera)
+  participant T as Transport
+  participant S as Spoke
+  I->>H: approve(investor)
+  H->>H: grant HTS KYC to the investor
+  loop every registered spoke
+    H->>T: COMPLIANCE(investor, approved, sequence)
+    T->>S: deliver
+    S->>S: mark the investor approved
+  end
+```
+
+Freezing and revoking follow the same path. On Hedera, freezing uses the token's freeze key and revoking removes the investor's KYC.
+
+### Subscribing
+
+```mermaid
+sequenceDiagram
+  participant V as Investor
+  participant H as Hub (Hedera)
+  participant F as Chainlink HBAR/USD
+  V->>H: subscribe() with HBAR
+  H->>F: latest price
+  H->>H: shares = HBAR value in USD / NAV
+  H->>V: deliver shares (HIP-904 airdrop)
+```
+
+Only approved investors can subscribe. The hub rejects the subscription if the price feed is older than a configured limit.
+
+### Sending shares to a spoke
+
+```mermaid
+sequenceDiagram
+  participant V as Investor
+  participant H as Hub (Hedera)
+  participant T as Transport
+  participant S as Spoke
+  V->>H: sendToSpoke(spoke, amount) with bridge fee
+  H->>H: take and burn the shares
+  H->>H: outstanding[spoke] += amount (must stay within the cap)
+  H->>T: MINT(transferId, investor, amount)
+  T->>S: deliver
+  S->>V: mint spoke tokens
+```
+
+### Returning shares to Hedera
+
+```mermaid
+sequenceDiagram
+  participant V as Investor
+  participant S as Spoke
+  participant T as Transport
+  participant H as Hub (Hedera)
+  V->>S: sendToHub(amount) with bridge fee
+  S->>S: burn spoke tokens
+  S->>T: RELEASE(transferId, investor, amount)
+  T->>H: deliver
+  H->>H: outstanding[spoke] -= amount
+  H->>V: mint and deliver shares on Hedera
+```
