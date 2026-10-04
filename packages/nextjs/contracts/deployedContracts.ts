@@ -4,6 +4,1344 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-hbar/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  296: {
+    AtollwayHub: {
+      address: "0x8b1b357e8940f708f981d8b4a05cd3e7a68d9bfc",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "issuer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "hbarUsdFeed",
+              type: "address",
+              internalType: "contract AggregatorV3Interface",
+            },
+            {
+              name: "maxPriceAge",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "NAV_DECIMALS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "acceptOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "addSpoke",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "transport",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+            {
+              name: "cap",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "approveInvestor",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "asset",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "assetDecimals",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "createAsset",
+          inputs: [
+            {
+              name: "name",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "symbol",
+              type: "string",
+              internalType: "string",
+            },
+            {
+              name: "decimals",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "memo",
+              type: "string",
+              internalType: "string",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "freezeInvestor",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "hbarUsdFeed",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "contract AggregatorV3Interface",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "hbarUsdPrice",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "isApproved",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "maxPriceAge",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "nav",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "owner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pause",
+          inputs: [],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "paused",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingOwner",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "proceedsRecipient",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address payable",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quoteComplianceBroadcast",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quotePauseBroadcast",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quoteSendToSpoke",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "quoteSubscription",
+          inputs: [
+            {
+              name: "hbarAmount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "shares",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "receiveMessage",
+          inputs: [
+            {
+              name: "sourceId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "message",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "released",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "renounceOwnership",
+          inputs: [],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "resendCompliance",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "accounts",
+              type: "address[]",
+              internalType: "address[]",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "revokeInvestor",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "sendToSpoke",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "sequenceOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "setMaxPriceAge",
+          inputs: [
+            {
+              name: "newMaxPriceAge",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setNav",
+          inputs: [
+            {
+              name: "newNav",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setProceedsRecipient",
+          inputs: [
+            {
+              name: "recipient",
+              type: "address",
+              internalType: "address payable",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setSpokeCap",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "cap",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "setSpokeTransport",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "transport",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "spokeIds",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint64[]",
+              internalType: "uint64[]",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "spokes",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+          outputs: [
+            {
+              name: "transport",
+              type: "address",
+              internalType: "contract ITransport",
+            },
+            {
+              name: "cap",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "outstanding",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "registered",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "statusOf",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "enum InvestorStatus",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "subscribe",
+          inputs: [
+            {
+              name: "minShares",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          outputs: [
+            {
+              name: "shares",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "transferCount",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "transferOwnership",
+          inputs: [
+            {
+              name: "newOwner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "unfreezeInvestor",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "function",
+          name: "unpause",
+          inputs: [],
+          outputs: [],
+          stateMutability: "payable",
+        },
+        {
+          type: "event",
+          name: "AssetCreated",
+          inputs: [
+            {
+              name: "asset",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "name",
+              type: "string",
+              indexed: false,
+              internalType: "string",
+            },
+            {
+              name: "symbol",
+              type: "string",
+              indexed: false,
+              internalType: "string",
+            },
+            {
+              name: "decimals",
+              type: "uint8",
+              indexed: false,
+              internalType: "uint8",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "InvestorStatusChanged",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "status",
+              type: "uint8",
+              indexed: false,
+              internalType: "enum InvestorStatus",
+            },
+            {
+              name: "sequence",
+              type: "uint64",
+              indexed: false,
+              internalType: "uint64",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "MaxPriceAgeUpdated",
+          inputs: [
+            {
+              name: "maxPriceAge",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "NavUpdated",
+          inputs: [
+            {
+              name: "nav",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferStarted",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "OwnershipTransferred",
+          inputs: [
+            {
+              name: "previousOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "newOwner",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "PausedChanged",
+          inputs: [
+            {
+              name: "paused",
+              type: "bool",
+              indexed: false,
+              internalType: "bool",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "ProceedsRecipientUpdated",
+          inputs: [
+            {
+              name: "recipient",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "ReleasedFromSpoke",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "spokeId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "SentToSpoke",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "spokeId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "SpokeAdded",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "transport",
+              type: "address",
+              indexed: false,
+              internalType: "contract ITransport",
+            },
+            {
+              name: "cap",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "SpokeCapUpdated",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "cap",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "SpokeTransportUpdated",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              indexed: true,
+              internalType: "uint64",
+            },
+            {
+              name: "transport",
+              type: "address",
+              indexed: false,
+              internalType: "contract ITransport",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Subscribed",
+          inputs: [
+            {
+              name: "investor",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "hbarAmount",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+            {
+              name: "shares",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+            {
+              name: "hbarUsdPrice",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "AlreadyReleased",
+          inputs: [
+            {
+              name: "transferId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "AssetAlreadyCreated",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "AssetNotCreated",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "CapExceeded",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "outstanding",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "cap",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ExceedsOutstanding",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "amount",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "outstanding",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "FailedCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "HederaCallFailed",
+          inputs: [
+            {
+              name: "selector",
+              type: "bytes4",
+              internalType: "bytes4",
+            },
+            {
+              name: "responseCode",
+              type: "int64",
+              internalType: "int64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientBalance",
+          inputs: [
+            {
+              name: "balance",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "needed",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InsufficientFee",
+          inputs: [
+            {
+              name: "required",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "provided",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InvalidPrice",
+          inputs: [
+            {
+              name: "answer",
+              type: "int256",
+              internalType: "int256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "InvalidStatusChange",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "from",
+              type: "uint8",
+              internalType: "enum InvestorStatus",
+            },
+            {
+              name: "to",
+              type: "uint8",
+              internalType: "enum InvestorStatus",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotATransferKind",
+          inputs: [
+            {
+              name: "kind",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotApproved",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "NotSpokeTransport",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+            {
+              name: "caller",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableInvalidOwner",
+          inputs: [
+            {
+              name: "owner",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "OwnableUnauthorizedAccount",
+          inputs: [
+            {
+              name: "account",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "PausedUnchanged",
+          inputs: [
+            {
+              name: "paused",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ReentrancyGuardReentrantCall",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "SafeCastOverflowedIntDowncast",
+          inputs: [
+            {
+              name: "bits",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "value",
+              type: "int256",
+              internalType: "int256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "SafeCastOverflowedIntToUint",
+          inputs: [
+            {
+              name: "value",
+              type: "int256",
+              internalType: "int256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "SafeCastOverflowedUintToInt",
+          inputs: [
+            {
+              name: "value",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "SpokeAlreadyAdded",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "SpokeDisconnected",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "StalePrice",
+          inputs: [
+            {
+              name: "updatedAt",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "SubscriptionsClosed",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "TooFewShares",
+          inputs: [
+            {
+              name: "shares",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "minShares",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnexpectedMessage",
+          inputs: [
+            {
+              name: "kind",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnknownSpoke",
+          inputs: [
+            {
+              name: "spokeId",
+              type: "uint64",
+              internalType: "uint64",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "UnsupportedVersion",
+          inputs: [
+            {
+              name: "version",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ZeroAddress",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "ZeroAmount",
+          inputs: [],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 41351644,
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

@@ -64,6 +64,7 @@ yarn next:dev           # frontend at http://localhost:3000
 | [Chain coverage](docs/chains.md) | Where spokes can run, with testnet bridge addresses |
 | [Contracts](packages/foundry/README.md) | The hub contracts, tests, simulation and deployment |
 | [Roadmap](docs/roadmap.md) | Milestones and their status |
+| [Deployments](docs/deployments.md) | Contract addresses and testnet transactions |
 | [Changelog](CHANGELOG.md) | What changed, release by release |
 
 ## Security
