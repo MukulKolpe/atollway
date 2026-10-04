@@ -27,6 +27,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - README rewritten for Atollway.
 
+### Removed
+
+- The upstream template's example contracts (`HederaToken`, `HtsTokenCreator`) and their deploy scripts.
+
 ### Fixed
 
 - The root `.gitignore` ignores `.env`, so a root environment file cannot be committed by mistake.
