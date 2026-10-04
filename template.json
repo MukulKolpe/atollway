@@ -14,6 +14,30 @@
     },
     "requirements": {
       "node": ">=20.18.3"
+    },
+    "outro": {
+      "sections": [
+        {
+          "title": "Next steps",
+          "steps": [
+            {
+              "label": "Fund a Hedera testnet account",
+              "url": "https://portal.hedera.com/faucet"
+            },
+            {
+              "label": "Generate or import a deployer account",
+              "command": "{run:framework:account:generate}"
+            },
+            {
+              "label": "Start the frontend",
+              "command": "{run:next:dev}"
+            },
+            {
+              "text": "Atollway is in early development. The README has the current walkthrough."
+            }
+          ]
+        }
+      ]
     }
   }
 }

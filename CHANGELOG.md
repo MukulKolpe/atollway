@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Dependabot updates for GitHub Actions.
 - Dependabot updates for npm packages.
 - `template.json` manifest for create-scaffold-hbar (Foundry, Next.js, Yarn).
+- Next steps printed after scaffolding.
 
 ### Security
 
