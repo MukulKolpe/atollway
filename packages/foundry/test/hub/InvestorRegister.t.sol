@@ -75,12 +75,46 @@ contract InvestorRegisterTest is HederaTest {
         _approve(alice);
     }
 
+    function test_freeze_andUnfreeze() public {
+        _approve(alice);
+        vm.prank(issuer);
+        hub.freezeInvestor(alice);
+        assertTrue(hts.isFrozen(token, alice));
+        assertFalse(hub.isApproved(alice));
+
+        vm.prank(issuer);
+        hub.unfreezeInvestor(alice);
+        assertFalse(hts.isFrozen(token, alice));
+        assertTrue(hub.isApproved(alice));
+    }
+
+    function test_freeze_requiresApproved() public {
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                InvestorRegister.InvalidStatusChange.selector, alice, InvestorStatus.None, InvestorStatus.Frozen
+            )
+        );
+        vm.prank(issuer);
+        hub.freezeInvestor(alice);
+    }
+
     function test_revoke_removesKyc() public {
         _approve(alice);
         vm.prank(issuer);
         hub.revokeInvestor(alice);
 
         assertEq(uint8(hub.statusOf(alice)), uint8(InvestorStatus.Revoked));
+        assertFalse(hts.isKyc(token, alice));
+    }
+
+    function test_revoke_frozenInvestorUnfreezesFirst() public {
+        _approve(alice);
+        vm.startPrank(issuer);
+        hub.freezeInvestor(alice);
+        hub.revokeInvestor(alice);
+        vm.stopPrank();
+
+        assertFalse(hts.isFrozen(token, alice));
         assertFalse(hts.isKyc(token, alice));
     }
 
@@ -96,13 +130,16 @@ contract InvestorRegisterTest is HederaTest {
 
     function test_statusChanges_areNumberedAndReported() public {
         _approve(alice);
-        vm.prank(issuer);
+        vm.startPrank(issuer);
+        hub.freezeInvestor(alice);
+        hub.unfreezeInvestor(alice);
         hub.revokeInvestor(alice);
-        _approve(alice);
+        vm.stopPrank();
 
-        InvestorStatus[3] memory expected = [InvestorStatus.Approved, InvestorStatus.Revoked, InvestorStatus.Approved];
-        assertEq(hub.changeCount(), 3);
-        for (uint256 i; i < 3; i++) {
+        InvestorStatus[4] memory expected =
+            [InvestorStatus.Approved, InvestorStatus.Frozen, InvestorStatus.Approved, InvestorStatus.Revoked];
+        assertEq(hub.changeCount(), 4);
+        for (uint256 i; i < 4; i++) {
             (address account, InvestorStatus status, uint64 sequence) = hub.changes(i);
             assertEq(account, alice);
             assertEq(uint8(status), uint8(expected[i]));

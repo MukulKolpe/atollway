@@ -6,7 +6,7 @@ import { HederaTokens } from "../hedera/HederaTokens.sol";
 import { AssetToken } from "./AssetToken.sol";
 
 /// @title Investor register
-/// @notice Approves and revokes investors, identified by their EVM address. Each decision is applied
+/// @notice Approves, freezes and revokes investors, identified by their EVM address. Each decision is applied
 /// to the asset token on Hedera and numbered with a per-investor sequence, so spokes can apply decisions in order.
 /// @dev Hedera grants KYC only to accounts associated with the token, so an investor associates first.
 /// See docs/adr/0004-evm-address-identity.md and docs/adr/0006-association-before-approval.md.
@@ -30,14 +30,32 @@ abstract contract InvestorRegister is AssetToken {
         _setStatus(account, InvestorStatus.Approved);
     }
 
-    /// @notice Revokes an approved investor. The account keeps its balance but can no longer move it.
+    /// @notice Freezes an approved investor's asset on Hedera and on every spoke.
+    function freezeInvestor(address account) external payable onlyOwner nonReentrant {
+        _requireStatus(account, InvestorStatus.Frozen, InvestorStatus.Approved, InvestorStatus.Approved);
+        HederaTokens.freeze(_requireAsset(), account);
+        _setStatus(account, InvestorStatus.Frozen);
+    }
+
+    /// @notice Unfreezes a frozen investor, who becomes approved again.
+    function unfreezeInvestor(address account) external payable onlyOwner nonReentrant {
+        _requireStatus(account, InvestorStatus.Approved, InvestorStatus.Frozen, InvestorStatus.Frozen);
+        HederaTokens.unfreeze(_requireAsset(), account);
+        _setStatus(account, InvestorStatus.Approved);
+    }
+
+    /// @notice Revokes an approved or frozen investor. The account keeps its balance but can no longer move it.
     function revokeInvestor(address account) external payable onlyOwner nonReentrant {
-        _requireStatus(account, InvestorStatus.Revoked, InvestorStatus.Approved, InvestorStatus.Approved);
-        HederaTokens.revokeKyc(_requireAsset(), account);
+        address token = _requireAsset();
+        InvestorStatus current =
+            _requireStatus(account, InvestorStatus.Revoked, InvestorStatus.Approved, InvestorStatus.Frozen);
+        // Unfreeze first, so the account is not left frozen on Hedera if it is approved again later.
+        if (current == InvestorStatus.Frozen) HederaTokens.unfreeze(token, account);
+        HederaTokens.revokeKyc(token, account);
         _setStatus(account, InvestorStatus.Revoked);
     }
 
-    /// @notice Whether `account` is approved.
+    /// @notice Whether `account` is approved and not frozen.
     function isApproved(address account) public view returns (bool) {
         return statusOf[account] == InvestorStatus.Approved;
     }
