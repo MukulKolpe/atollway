@@ -1,4 +1,4 @@
-PHONY: build deploy deploy-and-generate-abis generate-abis get-address account chain fork compile flatten format lint test verify
+PHONY: build deploy deploy-and-generate-abis generate-abis get-address account chain fork compile flatten format lint test simulate verify
 
 DEPLOY_SCRIPT ?= script/Deploy.s.sol
 
@@ -74,6 +74,15 @@ lint:
 # Run tests
 test:
 	forge test
+
+# Check the contracts against the real networks without submitting anything: Hedera testnet through mirror node
+# simulations, then forks of Base Sepolia, Arbitrum Sepolia and Robinhood Chain testnet.
+simulate:
+	forge build
+	node scripts-js/simulateHub.js
+	forge test --fork-url base_sepolia --match-path 'test/fork/*'
+	forge test --fork-url arbitrum_sepolia --match-path 'test/fork/*'
+	forge test --fork-url robinhood_testnet --match-path 'test/fork/*'
 
 # Verify contracts on Sourcify (Hedera is now supported on the main Sourcify instance)
 # Usage: make verify CONTRACT=0xAddress CONTRACT_PATH=contracts/MyContract.sol:MyContract CHAIN_ID=296

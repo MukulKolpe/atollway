@@ -22,6 +22,9 @@ const AXELAR_GATEWAY =
 const AXELAR_GAS_SERVICE =
   process.env.AXELAR_GAS_SERVICE ||
   "0xbE406F0189A0B4cf3A05C286473D23791Dd44Cc6";
+// Chainlink CCIP's router on Hedera testnet.
+const CCIP_ROUTER =
+  process.env.CCIP_ROUTER || "0x802C5F84eAD128Ff36fD6a3f8a418e339f467Ce4";
 // Any account holding at least 100 HBAR. Simulations never spend it. Defaults to 0.0.2.
 const SIMULATION_FROM =
   process.env.SIMULATION_FROM || "0x0000000000000000000000000000000000000002";
@@ -77,8 +80,8 @@ const hederaCallFailed = new ethers.utils.Interface([
 
 async function simulate(scenario) {
   const args = ethers.utils.defaultAbiCoder.encode(
-    ["address", "address", "address", "uint8"],
-    [HBAR_USD_FEED, AXELAR_GATEWAY, AXELAR_GAS_SERVICE, scenario]
+    ["address", "address", "address", "address", "uint8"],
+    [HBAR_USD_FEED, AXELAR_GATEWAY, AXELAR_GAS_SERVICE, CCIP_ROUTER, scenario]
   );
   const response = await fetch(`${MIRROR_NODE_URL}/api/v1/contracts/call`, {
     method: "POST",
@@ -131,6 +134,7 @@ async function main() {
   const successScenarios = [
     { id: 0, name: "Main flows" },
     { id: 5, name: "Messages to a spoke through Axelar on Hedera" },
+    { id: 6, name: "Messages to spokes through Chainlink CCIP on Hedera" },
   ];
   for (const scenario of successScenarios) {
     const outcome = await simulate(scenario.id);
@@ -147,7 +151,7 @@ async function main() {
     );
     console.log(`✅ ${scenario.name}: every check passed`);
     names.forEach((name, i) =>
-      console.log(`   ${name.padEnd(52)} ${values[i].toString()}`)
+      console.log(`   ${name.padEnd(54)} ${values[i].toString()}`)
     );
   }
 
