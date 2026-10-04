@@ -74,13 +74,17 @@ Whoever starts a flow pays the bridge fee in the source chain's native token: th
 
 ### Approving an investor
 
+Hedera grants KYC only to accounts associated with the token, so the investor associates first ([ADR-0006](adr/0006-association-before-approval.md)).
+
 ```mermaid
 sequenceDiagram
+  participant V as Investor
   participant I as Issuer
   participant H as Hub (Hedera)
   participant T as Transport
   participant S as Spoke
-  I->>H: approve(investor)
+  V->>H: associate with the asset token (HIP-719)
+  I->>H: approveInvestor(investor) with bridge fees
   H->>H: grant HTS KYC to the investor
   loop every registered spoke
     H->>T: COMPLIANCE(investor, approved, sequence)
@@ -98,13 +102,15 @@ sequenceDiagram
   participant V as Investor
   participant H as Hub (Hedera)
   participant F as Chainlink HBAR/USD
-  V->>H: subscribe() with HBAR
+  V->>H: subscribe(minShares) with HBAR
   H->>F: latest price
   H->>H: shares = HBAR value in USD / NAV
-  H->>V: deliver shares (HIP-904 airdrop)
+  H->>H: mint the shares
+  H->>V: transfer the shares
+  H->>H: forward the HBAR to the issuer
 ```
 
-Only approved investors can subscribe. The hub rejects the subscription if the price feed is older than a configured limit.
+Only approved investors can subscribe. The hub rejects the subscription if the price feed is older than a configured limit, or if it would deliver fewer than `minShares`.
 
 ### Sending shares to a spoke
 
@@ -115,7 +121,7 @@ sequenceDiagram
   participant T as Transport
   participant S as Spoke
   V->>H: sendToSpoke(spoke, amount) with bridge fee
-  H->>H: take and burn the shares
+  H->>H: burn the shares from the investor's account
   H->>H: outstanding[spoke] += amount (must stay within the cap)
   H->>T: MINT(transferId, investor, amount)
   T->>S: deliver
