@@ -35,6 +35,7 @@ If you cloned without `--recurse-submodules`, run `git submodule update --init -
 | Build the frontend | `yarn next:build` |
 | Compile contracts | `yarn foundry:compile` |
 | Test contracts | `yarn foundry:test` |
+| Simulate the hub on Hedera testnet | `yarn foundry:simulate` |
 | Run the frontend locally | `yarn next:dev` |
 
 ## How work is organised

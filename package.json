@@ -20,6 +20,7 @@
     "foundry:test:local": "yarn workspace @sh/foundry test:local",
     "foundry:test:testnet": "yarn workspace @sh/foundry test:testnet",
     "foundry:test:mainnet": "yarn workspace @sh/foundry test:mainnet",
+    "foundry:simulate": "yarn workspace @sh/foundry simulate",
     "foundry:deploy": "yarn workspace @sh/foundry deploy",
     "foundry:flatten": "yarn workspace @sh/foundry flatten",
     "foundry:fork": "yarn workspace @sh/foundry fork",
