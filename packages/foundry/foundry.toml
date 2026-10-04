@@ -20,6 +20,7 @@ exclude_lints = ["mixed-case-variable", "mixed-case-function", "screaming-snake-
 localhost = "http://127.0.0.1:8545"
 hedera_testnet = "https://testnet.hashio.io/api"
 hedera_mainnet = "https://mainnet.hashio.io/api"
+base_sepolia = "https://sepolia.base.org"
 
 # Hedera is now supported on the main Sourcify instance (sourcify.dev).
 # Use: forge verify-contract <ADDRESS> <CONTRACT> --chain-id 296 --verifier sourcify
