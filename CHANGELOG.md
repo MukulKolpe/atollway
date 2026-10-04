@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Roadmap.
 - Architecture decision records in `docs/adr`.
 - Architecture document: components, message flows, trust model and failure modes.
+- A Foundry mock of the Hedera Token Service that returns Hedera's response codes.
 
 ### Changed
 
