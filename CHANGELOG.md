@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Next steps printed after scaffolding.
 - Chain coverage: routes from Hedera to the top chains, with testnet bridge addresses.
 - Roadmap.
+- Architecture decision records in `docs/adr`.
 
 ### Fixed
 
