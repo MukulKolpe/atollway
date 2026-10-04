@@ -126,4 +126,68 @@ contract SupplyLedgerTest is HederaTest {
         vm.prank(alice);
         hub.sendToSpoke{ value: FEE }(BASE, 501e6);
     }
+
+    function test_release_mintsBackToRecipient() public {
+        vm.prank(alice);
+        hub.sendToSpoke{ value: FEE }(BASE, 200e6);
+
+        _release(keccak256("spoke-transfer-1"), alice, 150e6);
+
+        assertEq(_balance(token, alice), 450e6);
+        (,, uint256 outstanding,) = hub.spokes(BASE);
+        assertEq(outstanding, 50e6);
+        assertTrue(hub.released(keccak256("spoke-transfer-1")));
+    }
+
+    function test_release_onlyOnce() public {
+        vm.prank(alice);
+        hub.sendToSpoke{ value: FEE }(BASE, 200e6);
+        _release(keccak256("t"), alice, 10e6);
+
+        vm.expectRevert(abi.encodeWithSelector(SupplyLedger.AlreadyReleased.selector, keccak256("t")));
+        _release(keccak256("t"), alice, 10e6);
+    }
+
+    function test_release_cannotExceedOutstanding() public {
+        vm.prank(alice);
+        hub.sendToSpoke{ value: FEE }(BASE, 200e6);
+
+        vm.expectRevert(abi.encodeWithSelector(SupplyLedger.ExceedsOutstanding.selector, BASE, 201e6, 200e6));
+        _release(keccak256("t"), alice, 201e6);
+    }
+
+    function test_release_onlyFromTheSpokeTransport() public {
+        bytes memory message = Messages.encodeTransfer(Messages.RELEASE, keccak256("t"), alice, 1);
+        vm.expectRevert(abi.encodeWithSelector(SupplyLedger.NotSpokeTransport.selector, BASE, address(this)));
+        hub.receiveMessage(BASE, message);
+
+        MockTransport other = new MockTransport(FEE);
+        vm.expectRevert(abi.encodeWithSelector(SupplyLedger.NotSpokeTransport.selector, BASE, address(other)));
+        other.deliver(hub, BASE, message);
+    }
+
+    function test_release_rejectsOtherKinds() public {
+        vm.expectRevert(abi.encodeWithSelector(SupplyLedger.UnexpectedMessage.selector, Messages.MINT));
+        transport.deliver(hub, BASE, Messages.encodeTransfer(Messages.MINT, keccak256("t"), alice, 1));
+    }
+
+    function test_release_toFrozenInvestorReverts() public {
+        vm.prank(alice);
+        hub.sendToSpoke{ value: FEE }(BASE, 200e6);
+        vm.prank(issuer);
+        hub.freezeInvestor(alice);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(
+                HederaTokens.HederaCallFailed.selector,
+                IHederaTokenService.transferToken.selector,
+                Codes.ACCOUNT_FROZEN_FOR_TOKEN
+            )
+        );
+        _release(keccak256("t"), alice, 10e6);
+    }
+
+    function _release(bytes32 transferId, address recipient, uint256 amount) internal {
+        transport.deliver(hub, BASE, Messages.encodeTransfer(Messages.RELEASE, transferId, recipient, amount));
+    }
 }
