@@ -6,6 +6,7 @@ Short records of the decisions that shape Atollway: the context, the decision an
 | --- | --- | --- |
 | [0001](0001-hedera-as-the-hub.md) | Use Hedera as the hub for issuance and servicing | Accepted |
 | [0002](0002-hts-asset-token.md) | Issue the asset as a Hedera Token Service token | Accepted |
+| [0003](0003-axelar-and-ccip-transports.md) | Connect chains through Axelar and Chainlink CCIP | Accepted |
 
 ## Adding a record
 
