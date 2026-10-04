@@ -42,6 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Scripts to deploy a spoke on Base Sepolia and connect it to the hub over Axelar.
 - First spoke deployed to Base Sepolia and connected to the hub over Axelar ([deployments](docs/deployments.md)).
 - Chainlink CCIP transport adapter, paying the router's quoted fee in the native token.
+- CCIP relay on Base Sepolia for chains with no CCIP lane to Hedera ([ADR-0009](docs/adr/0009-ccip-relay.md)).
 
 ### Changed
 
