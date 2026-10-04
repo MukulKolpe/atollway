@@ -8,6 +8,8 @@ fs_permissions = [
 ]
 ffi = true
 evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
 
 # Suppress style lints for API/modifier names we don't control
 [lint]
