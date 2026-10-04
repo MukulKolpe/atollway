@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Axelar transport adapter, with gas prepaid at a fee set per route ([ADR-0008](docs/adr/0008-axelar-fees.md)).
 - End-to-end tests of the hub and a spoke over Axelar. `yarn foundry:simulate` also checks both Axelar adapters against Axelar's real contracts on Hedera testnet and Base Sepolia.
 - Scripts to deploy a spoke on Base Sepolia and connect it to the hub over Axelar.
+- First spoke deployed to Base Sepolia and connected to the hub over Axelar ([deployments](docs/deployments.md)).
 
 ### Changed
 
