@@ -1,6 +1,6 @@
 # ADR-0002: Issue the asset as a Hedera Token Service token
 
-- **Status:** Accepted, amended by [ADR-0006](0006-association-before-approval.md)
+- **Status:** Accepted, amended by [ADR-0006](0006-association-before-approval.md) and [ADR-0007](0007-hts-mock-and-simulation.md)
 - **Date:** 2026-10-04
 
 ## Context
