@@ -14,6 +14,34 @@ Tokenized assets are often issued on several chains at once. Each copy then need
 - **One supply.** Shares move between Hedera and other chains without being duplicated, and the amount on each chain is capped.
 - **Servicing from one place.** Pricing and payouts run on Hedera, with fixed, low fees and scheduled execution.
 
+## How it works
+
+```mermaid
+flowchart LR
+  hub["Hedera hub<br/>HTS asset · investor register · pricing"]
+  hub <-->|Axelar| a["Base"]
+  hub <-->|Axelar| b["Robinhood Chain"]
+  hub <-->|Chainlink CCIP| c["Arbitrum"]
+  hub <-->|CCIP via Base| d["Canton"]
+```
+
+1. The issuer creates the asset on Hedera as a Hedera Token Service token, with network-enforced KYC, freeze and pause controls.
+2. Approved investors subscribe with HBAR at the issuer's net asset value, priced with the Chainlink HBAR/USD feed.
+3. Investors move shares to another chain. The hub burns them on Hedera and the spoke on that chain mints a mirror token at the same address.
+4. Every compliance decision made on Hedera is sent to every spoke over Axelar or Chainlink CCIP, so the rules are the same everywhere.
+
+The [architecture document](docs/architecture.md) covers the components, message flows, trust model and failure modes. [Chain coverage](docs/chains.md) lists the chains a spoke can run on, and the [decision records](docs/adr/README.md) explain why the design looks the way it does.
+
+## Documentation
+
+| Document | What it covers |
+| --- | --- |
+| [Architecture](docs/architecture.md) | Components, message flows, trust model, failure modes |
+| [Decision records](docs/adr/README.md) | Why the design looks the way it does |
+| [Chain coverage](docs/chains.md) | Where spokes can run, with testnet bridge addresses |
+| [Roadmap](docs/roadmap.md) | Milestones and their status |
+| [Changelog](CHANGELOG.md) | What changed, release by release |
+
 ## License
 
 [MIT](LICENSE)
