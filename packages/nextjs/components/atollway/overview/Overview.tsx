@@ -46,10 +46,13 @@ export const Overview = () => {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild size="lg" className="h-11 rounded-full px-5 text-base">
-              <Link href="/debug">
-                Explore the contracts
+              <Link href="/invest">
+                Start investing
                 <ArrowRightIcon />
               </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="h-11 rounded-full px-5 text-base">
+              <Link href="/debug">Explore the contracts</Link>
             </Button>
           </div>
         </div>
