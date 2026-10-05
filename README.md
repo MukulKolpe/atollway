@@ -4,7 +4,7 @@ Issue a tokenized asset on Hedera, hold it on other major chains, and keep compl
 
 Atollway is a [Scaffold-HBAR](https://docs.hedera.com/solutions/tools/scaffold-hbar) template for tokenized funds, bonds and other real-world assets that live on more than one chain.
 
-> **Status:** in development. The Hedera hub and three spokes are running on testnet ([deployments](docs/deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over Chainlink CCIP, and Robinhood Chain over CCIP through a relay on Base. The app is next. See the [roadmap](docs/roadmap.md).
+> **Status:** in development. The Hedera hub and three spokes are running on testnet ([deployments](docs/deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over Chainlink CCIP, and Robinhood Chain over CCIP through a relay on Base. The app serves investors and the issuer on every chain. Payouts are next. See the [roadmap](docs/roadmap.md).
 
 ## Why Atollway
 
@@ -32,6 +32,16 @@ flowchart LR
 
 The [architecture document](docs/architecture.md) covers the components, message flows, trust model and failure modes. [Chain coverage](docs/chains.md) lists the chains a spoke can run on, and the [decision records](docs/adr/README.md) explain why the design looks the way it does.
 
+## The app
+
+![The Atollway overview: a live map of the Hedera hub and its spokes, with supply, NAV and HBAR price](docs/images/overview.png)
+
+- **Overview** shows the hub and its spokes live: the supply on every chain, the NAV, the Chainlink HBAR price and the latest events.
+- **Invest** takes an investor through setup, subscribes with HBAR, and moves shares between chains with a live timeline for each transfer.
+- **Issuer** approves, freezes and revokes investors, shows which spokes have applied each decision, and sets caps, the NAV and the pause switch.
+
+[docs/app.md](docs/app.md) explains where the data comes from and how to add a spoke to the app.
+
 ## Getting started
 
 Atollway is not released yet. Once it is, create a project from it with:
@@ -53,7 +63,7 @@ yarn foundry:simulate
 yarn next:dev
 ```
 
-`yarn foundry:test` runs the contract tests, `yarn foundry:simulate` checks the contracts against Hedera testnet and the spoke testnets without spending anything, and `yarn next:dev` starts the frontend at http://localhost:3000.
+`yarn foundry:test` runs the contract tests, `yarn foundry:simulate` checks the contracts against Hedera testnet and the spoke testnets without spending anything, and `yarn next:dev` starts the app at http://localhost:3000.
 
 [CONTRIBUTING.md](CONTRIBUTING.md) lists every command and explains how changes are proposed and reviewed.
 
@@ -65,6 +75,7 @@ yarn next:dev
 | [Decision records](docs/adr/README.md) | Why the design looks the way it does |
 | [Chain coverage](docs/chains.md) | Where spokes can run, with testnet bridge addresses |
 | [Contracts](packages/foundry/README.md) | The hub contracts, tests, simulation and deployment |
+| [App](docs/app.md) | Pages, data sources, configuration and adding a spoke to the app |
 | [Roadmap](docs/roadmap.md) | Milestones and their status |
 | [Deployments](docs/deployments.md) | Contract addresses and testnet transactions |
 | [Changelog](CHANGELOG.md) | What changed, release by release |
