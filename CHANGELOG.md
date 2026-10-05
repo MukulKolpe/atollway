@@ -46,16 +46,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - A test of one hub with three spokes over two bridges. `yarn foundry:simulate` also checks the CCIP adapter and the relay against Chainlink's real routers on Hedera testnet, Base Sepolia, Arbitrum Sepolia and Robinhood Chain testnet.
 - Scripts to deploy spokes over Chainlink CCIP, directly or through the relay, and to connect them to the hub.
 - Spokes on Arbitrum Sepolia over Chainlink CCIP and on Robinhood Chain testnet through the CCIP relay ([deployments](docs/deployments.md)).
+- Network overview in the app: a live map of the hub and its spokes, total supply split by chain, the NAV, the Chainlink HBAR price and the hub's latest events.
 
 ### Changed
 
 - README rewritten for Atollway.
 - Contracts compile with the Solidity optimizer (200 runs).
 - The Foundry package README documents the hub contracts, testing and deployment.
+- The app uses shadcn/ui on Tailwind CSS instead of daisyUI, with light and dark themes, and works with Hedera testnet, Base Sepolia, Arbitrum Sepolia and Robinhood Chain testnet.
 
 ### Removed
 
 - The upstream template's example contracts (`HederaToken`, `HtsTokenCreator`) and their deploy scripts.
+- The upstream app's block explorer, burner wallet and local Hedera fork network, which only worked against a local chain.
 
 ### Fixed
 

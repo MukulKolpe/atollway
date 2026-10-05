@@ -1,139 +1,80 @@
-import { useRef, useState } from "react";
-import { NetworkOptions } from "./NetworkOptions";
-import { getAddress } from "viem";
-import { Address } from "viem";
-import { useAccount, useDisconnect } from "wagmi";
-import {
-  ArrowLeftStartOnRectangleIcon,
-  ArrowTopRightOnSquareIcon,
-  ArrowsRightLeftIcon,
-  CheckCircleIcon,
-  ChevronDownIcon,
-  DocumentDuplicateIcon,
-  KeyIcon,
-} from "@heroicons/react/24/outline";
-import { BlockieAvatar } from "~~/components/scaffold-hbar";
-import { useCopyToClipboard, useOutsideClick } from "~~/hooks/scaffold-hbar";
-import { getTargetNetworks } from "~~/utils/scaffold-hbar";
-import { isENS } from "~~/utils/scaffold-hbar/common";
+"use client";
 
-const allowedNetworks = getTargetNetworks();
+import { blo } from "blo";
+import { CheckIcon, ChevronDownIcon, CopyIcon, ExternalLinkIcon, LogOutIcon } from "lucide-react";
+import { Address } from "viem";
+import { useDisconnect } from "wagmi";
+import { Button } from "~~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~~/components/ui/dropdown-menu";
+import { useCopyToClipboard, useHederaAccountId } from "~~/hooks/scaffold-hbar";
+import { shortAddress } from "~~/utils/atollway/format";
+import { HUB_CHAIN_ID } from "~~/utils/atollway/networks";
 
 type AddressInfoDropdownProps = {
   address: Address;
   blockExplorerAddressLink: string | undefined;
-  displayName: string;
-  ensAvatar?: string;
+  displayBalance?: string;
 };
 
-const BURNER_WALLET_CONNECTOR_ID = "burnerWallet";
-
+/**
+ * The connected account: copy the address, see it on the explorer, or disconnect.
+ */
 export const AddressInfoDropdown = ({
   address,
-  ensAvatar,
-  displayName,
   blockExplorerAddressLink,
+  displayBalance,
 }: AddressInfoDropdownProps) => {
   const { disconnect } = useDisconnect();
-  const { connector } = useAccount();
-  const isBurnerWallet = connector?.id === BURNER_WALLET_CONNECTOR_ID;
-  const checkSumAddress = getAddress(address);
-
-  const { copyToClipboard: copyAddressToClipboard, isCopiedToClipboard: isAddressCopiedToClipboard } =
-    useCopyToClipboard();
-  const [selectingNetwork, setSelectingNetwork] = useState(false);
-  const dropdownRef = useRef<HTMLDetailsElement>(null);
-
-  const closeDropdown = () => {
-    setSelectingNetwork(false);
-    dropdownRef.current?.removeAttribute("open");
-  };
-
-  useOutsideClick(dropdownRef, closeDropdown);
+  const { copyToClipboard, isCopiedToClipboard } = useCopyToClipboard();
+  const { accountId } = useHederaAccountId(address, HUB_CHAIN_ID);
 
   return (
-    <>
-      <details ref={dropdownRef} className="dropdown dropdown-end leading-3">
-        <summary className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 h-auto!">
-          <BlockieAvatar address={checkSumAddress} size={30} ensImage={ensAvatar} />
-          <span className="ml-2 mr-1">
-            {isENS(displayName) ? displayName : checkSumAddress?.slice(0, 6) + "..." + checkSumAddress?.slice(-4)}
-          </span>
-          <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
-        </summary>
-        <ul className="dropdown-content menu z-2 p-2 mt-2 shadow-center shadow-accent bg-base-200 rounded-box gap-1">
-          <NetworkOptions hidden={!selectingNetwork} />
-          <li className={selectingNetwork ? "hidden" : ""}>
-            <div
-              className="h-8 btn-sm rounded-xl! flex gap-3 py-3 cursor-pointer"
-              onClick={() => copyAddressToClipboard(checkSumAddress)}
-            >
-              {isAddressCopiedToClipboard ? (
-                <>
-                  <CheckCircleIcon className="text-xl font-normal h-6 w-4 ml-2 sm:ml-0" aria-hidden="true" />
-                  <span className="whitespace-nowrap">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <DocumentDuplicateIcon className="text-xl font-normal h-6 w-4 ml-2 sm:ml-0" aria-hidden="true" />
-                  <span className="whitespace-nowrap">Copy address</span>
-                </>
-              )}
-            </div>
-          </li>
-          <li className={selectingNetwork ? "hidden" : ""}>
-            <button className="h-8 btn-sm rounded-xl! flex gap-3 py-3" type="button">
-              <ArrowTopRightOnSquareIcon className="h-6 w-4 ml-2 sm:ml-0" />
-              <a
-                target="_blank"
-                href={blockExplorerAddressLink}
-                rel="noopener noreferrer"
-                className="whitespace-nowrap"
-              >
-                View on Block Explorer
-              </a>
-            </button>
-          </li>
-          {allowedNetworks.length > 1 ? (
-            <li className={selectingNetwork ? "hidden" : ""}>
-              <button
-                className="h-8 btn-sm rounded-xl! flex gap-3 py-3"
-                type="button"
-                onClick={() => {
-                  setSelectingNetwork(true);
-                }}
-              >
-                <ArrowsRightLeftIcon className="h-6 w-4 ml-2 sm:ml-0" /> <span>Switch Network</span>
-              </button>
-            </li>
-          ) : null}
-          {isBurnerWallet && (
-            <>
-              <li className={selectingNetwork ? "hidden" : ""}>
-                <label htmlFor="reveal-burner-pk-modal" className="h-8 btn-sm rounded-xl! flex gap-3 py-3">
-                  <KeyIcon className="h-6 w-4 ml-2 sm:ml-0" />
-                  <span className="whitespace-nowrap">Reveal Private Key</span>
-                </label>
-              </li>
-              <li className={selectingNetwork ? "hidden" : ""}>
-                <label htmlFor="set-burner-pk-modal" className="h-8 btn-sm rounded-xl! flex gap-3 py-3">
-                  <KeyIcon className="h-6 w-4 ml-2 sm:ml-0" />
-                  <span className="whitespace-nowrap">Set Private Key</span>
-                </label>
-              </li>
-            </>
-          )}
-          <li className={selectingNetwork ? "hidden" : ""}>
-            <button
-              className="menu-item text-error h-8 btn-sm rounded-xl! flex gap-3 py-3"
-              type="button"
-              onClick={() => disconnect()}
-            >
-              <ArrowLeftStartOnRectangleIcon className="h-6 w-4 ml-2 sm:ml-0" /> <span>Disconnect</span>
-            </button>
-          </li>
-        </ul>
-      </details>
-    </>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="lg" className="rounded-full pl-1.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={blo(address as `0x${string}`)} alt="" className="size-6 rounded-full" />
+          <span className="hidden font-mono text-xs sm:inline">{shortAddress(address)}</span>
+          <ChevronDownIcon className="text-muted-foreground" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-64">
+        <DropdownMenuLabel className="flex flex-col gap-0.5 py-2">
+          <span className="font-mono text-xs text-foreground">{shortAddress(address, 10)}</span>
+          {accountId && <span className="text-xs">Hedera account {accountId}</span>}
+          {displayBalance && <span className="text-xs">{displayBalance}</span>}
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onSelect={event => {
+            event.preventDefault();
+            copyToClipboard(address);
+          }}
+        >
+          {isCopiedToClipboard ? <CheckIcon className="text-success" /> : <CopyIcon />}
+          {isCopiedToClipboard ? "Copied" : "Copy address"}
+        </DropdownMenuItem>
+        {blockExplorerAddressLink && (
+          <DropdownMenuItem asChild>
+            <a href={blockExplorerAddressLink} target="_blank" rel="noreferrer">
+              <ExternalLinkIcon />
+              View on explorer
+            </a>
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive" onSelect={() => disconnect()}>
+          <LogOutIcon />
+          Disconnect
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

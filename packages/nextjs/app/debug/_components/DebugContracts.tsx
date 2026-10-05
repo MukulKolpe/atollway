@@ -2,15 +2,26 @@
 
 import { useEffect, useMemo } from "react";
 import { ContractUI } from "./ContractUI";
+import "@scaffold-hbar-ui/components/styles.css";
 import "@scaffold-hbar-ui/debug-contracts/styles.css";
 import { useSessionStorage } from "usehooks-ts";
-import { BarsArrowUpIcon } from "@heroicons/react/20/solid";
-import { ContractName, GenericContract } from "~~/utils/scaffold-hbar/contract";
+import { useAccount, useSwitchChain } from "wagmi";
+import { ChainIcon } from "~~/components/atollway/ChainIcon";
+import { Button } from "~~/components/ui/button";
+import { useTargetNetwork } from "~~/hooks/scaffold-hbar";
+import { useGlobalState } from "~~/services/store/store";
+import { NETWORKS, getProfile } from "~~/utils/atollway/networks";
+import { NETWORKS_EXTRA_DATA } from "~~/utils/scaffold-hbar";
+import { ContractName } from "~~/utils/scaffold-hbar/contract";
 import { useAllContracts } from "~~/utils/scaffold-hbar/contractsData";
 
 const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 
 export function DebugContracts() {
+  const { targetNetwork } = useTargetNetwork();
+  const setTargetNetwork = useGlobalState(({ setTargetNetwork }) => setTargetNetwork);
+  const { isConnected } = useAccount();
+  const { switchChain } = useSwitchChain();
   const contractsData = useAllContracts();
   const contractNames = useMemo(
     () =>
@@ -33,40 +44,48 @@ export function DebugContracts() {
   }, [contractNames, selectedContract, setSelectedContract]);
 
   return (
-    <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
+    <div className="flex flex-col items-center gap-y-6 py-8 lg:gap-y-8 lg:py-12">
+      <div className="flex w-full max-w-7xl flex-col gap-3 px-6 lg:px-10">
+        <div className="flex flex-wrap gap-2">
+          {NETWORKS.map(network => (
+            <Button
+              key={network.id}
+              variant={network.id === targetNetwork.id ? "secondary" : "ghost"}
+              className="rounded-full"
+              onClick={() =>
+                isConnected
+                  ? switchChain({ chainId: network.id })
+                  : setTargetNetwork({ ...network, ...NETWORKS_EXTRA_DATA[network.id] })
+              }
+            >
+              <ChainIcon chainId={network.id} size={18} />
+              {getProfile(network.id).name}
+            </Button>
+          ))}
+        </div>
+        {contractNames.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {contractNames.map(contractName => (
+              <Button
+                key={String(contractName)}
+                variant={contractName === selectedContract ? "default" : "outline"}
+                size="sm"
+                className="rounded-full"
+                onClick={() => setSelectedContract(contractName)}
+              >
+                {String(contractName)}
+              </Button>
+            ))}
+          </div>
+        )}
+      </div>
       {contractNames.length === 0 ? (
-        <p className="text-3xl mt-14">No contracts found!</p>
+        <p className="mt-14 text-xl text-muted-foreground">No contracts on {targetNetwork.name}.</p>
       ) : (
-        <>
-          {contractNames.length > 1 && (
-            <div className="flex flex-row gap-2 w-full max-w-7xl pb-1 px-6 lg:px-10 flex-wrap">
-              {contractNames.map(contractName => (
-                <button
-                  className={`btn btn-secondary btn-sm font-light hover:border-transparent ${
-                    contractName === selectedContract
-                      ? "bg-base-300 hover:bg-base-300 no-animation"
-                      : "bg-base-100 hover:bg-secondary"
-                  }`}
-                  key={String(contractName)}
-                  onClick={() => setSelectedContract(contractName)}
-                >
-                  {String(contractName)}
-                  {(contractsData[String(contractName)] as GenericContract)?.external && (
-                    <span className="tooltip tooltip-top tooltip-accent" data-tip="External contract">
-                      <BarsArrowUpIcon className="h-4 w-4 cursor-pointer" />
-                    </span>
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
-          {contractNames.map(
-            contractName =>
-              contractName === selectedContract && (
-                <ContractUI key={String(contractName)} contractName={contractName} />
-              ),
-          )}
-        </>
+        contractNames.map(
+          contractName =>
+            contractName === selectedContract && <ContractUI key={String(contractName)} contractName={contractName} />,
+        )
       )}
     </div>
   );

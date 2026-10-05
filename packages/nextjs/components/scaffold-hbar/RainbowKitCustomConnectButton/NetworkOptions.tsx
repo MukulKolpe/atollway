@@ -1,48 +1,32 @@
-import { useTheme } from "next-themes";
+"use client";
+
+import { CheckIcon } from "lucide-react";
 import { useAccount, useSwitchChain } from "wagmi";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/solid";
-import { getNetworkColor } from "~~/hooks/scaffold-hbar";
-import { getTargetNetworks } from "~~/utils/scaffold-hbar";
+import { ChainIcon } from "~~/components/atollway/ChainIcon";
+import { DropdownMenuItem } from "~~/components/ui/dropdown-menu";
+import { NETWORKS, getProfile, isHub } from "~~/utils/atollway/networks";
 
-const allowedNetworks = getTargetNetworks();
-
-type NetworkOptionsProps = {
-  hidden?: boolean;
-};
-
-export const NetworkOptions = ({ hidden = false }: NetworkOptionsProps) => {
-  const { switchChain } = useSwitchChain();
+/**
+ * Menu items that switch the wallet to each of the app's networks.
+ */
+export const NetworkOptions = () => {
   const { chain } = useAccount();
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === "dark";
+  const { switchChain } = useSwitchChain();
 
   return (
     <>
-      {allowedNetworks
-        .filter(allowedNetwork => allowedNetwork.id !== chain?.id)
-        .map(allowedNetwork => (
-          <li key={allowedNetwork.id} className={hidden ? "hidden" : ""}>
-            <button
-              className="menu-item btn-sm rounded-xl! flex gap-3 py-3 whitespace-nowrap"
-              type="button"
-              onClick={() => {
-                switchChain?.({ chainId: allowedNetwork.id });
-              }}
-            >
-              <ArrowsRightLeftIcon className="h-6 w-4 ml-2 sm:ml-0" />
-              <span>
-                Switch to{" "}
-                <span
-                  style={{
-                    color: getNetworkColor(allowedNetwork, isDarkMode),
-                  }}
-                >
-                  {allowedNetwork.name}
-                </span>
-              </span>
-            </button>
-          </li>
-        ))}
+      {NETWORKS.map(network => (
+        <DropdownMenuItem
+          key={network.id}
+          onSelect={() => network.id !== chain?.id && switchChain({ chainId: network.id })}
+          className="gap-2.5"
+        >
+          <ChainIcon chainId={network.id} size={18} />
+          <span className="flex-1">{getProfile(network.id).name}</span>
+          {isHub(network.id) && <span className="text-xs text-muted-foreground">Hub</span>}
+          {network.id === chain?.id && <CheckIcon className="text-primary" />}
+        </DropdownMenuItem>
+      ))}
     </>
   );
 };

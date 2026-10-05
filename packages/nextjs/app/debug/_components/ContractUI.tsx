@@ -2,6 +2,7 @@
 
 // @refresh reset
 import { Contract } from "@scaffold-hbar-ui/debug-contracts";
+import { Spinner } from "~~/components/ui/spinner";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-hbar";
 import { useTargetNetwork } from "~~/hooks/scaffold-hbar/useTargetNetwork";
 import { ContractName } from "~~/utils/scaffold-hbar/contract";
@@ -21,15 +22,15 @@ export const ContractUI = ({ contractName }: ContractUIProps) => {
   if (deployedContractLoading) {
     return (
       <div className="mt-14">
-        <span className="loading loading-spinner loading-lg"></span>
+        <Spinner className="size-8 text-muted-foreground" />
       </div>
     );
   }
 
   if (!deployedContractData) {
     return (
-      <p className="text-3xl mt-14">
-        No contract found by the name of {String(contractName)} on chain {targetNetwork.name}!
+      <p className="mt-14 text-xl text-muted-foreground">
+        No contract named {String(contractName)} on {targetNetwork.name}.
       </p>
     );
   }
