@@ -23,3 +23,8 @@ coverage/
 .DS_Store
 .vscode/
 .idea/
+
+# Local AI agent tooling
+.claude/
+.agents/
+skills-lock.json
