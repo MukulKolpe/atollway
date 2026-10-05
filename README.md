@@ -41,6 +41,7 @@ The [architecture document](docs/architecture.md) covers the components, message
 - **Overview** shows the hub and its spokes live: the supply on every chain, the NAV, the Chainlink HBAR price and the latest events.
 - **Invest** takes an investor through setup, subscribes with HBAR, and moves shares between chains with a live timeline for each transfer.
 - **Issuer** approves, freezes and revokes investors, shows which spokes have applied each decision, and sets caps, the NAV and the pause switch.
+- **Docs** explains the template inside the app: a quick start, how it works, how to make it yours, and ideas to build on it.
 
 [docs/app.md](docs/app.md) explains where the data comes from and how to add a spoke to the app.
 

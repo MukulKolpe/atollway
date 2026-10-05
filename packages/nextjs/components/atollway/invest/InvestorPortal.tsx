@@ -52,8 +52,8 @@ export const InvestorPortal = () => {
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 pt-10 pb-20 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-3xl font-semibold tracking-tight">Your portfolio</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-4xl font-semibold tracking-tight">Your portfolio</h1>
+          <p className="text-base text-muted-foreground">
             {shortAddress(address, 6)}
             {investor.accountId && ` · Hedera account ${investor.accountId}`}
           </p>

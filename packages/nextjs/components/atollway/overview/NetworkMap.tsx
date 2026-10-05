@@ -172,16 +172,16 @@ export const NetworkMap = ({
             </g>
             <g transform={`translate(${route.label.x} ${route.label.y})`}>
               <rect
-                x={-route.labelText.length * 3.3 - 10}
+                x={-route.labelText.length * 3.7 - 11}
                 y={-11}
-                width={route.labelText.length * 6.6 + 20}
+                width={route.labelText.length * 7.4 + 22}
                 height={22}
                 rx={11}
                 fill="var(--card)"
                 stroke={color}
                 strokeOpacity={0.5}
               />
-              <text textAnchor="middle" dy="0.35em" fontSize={11} fontWeight={500} fill="var(--foreground)">
+              <text textAnchor="middle" dy="0.35em" fontSize={12.5} fontWeight={500} fill="var(--foreground)">
                 {route.labelText}
               </text>
             </g>
@@ -215,7 +215,7 @@ export const NetworkMap = ({
           x={CENTER.x}
           y={CENTER.y + HUB_RADIUS + 22}
           textAnchor="middle"
-          fontSize={13}
+          fontSize={15}
           fontWeight={600}
           fill="var(--foreground)"
         >
@@ -223,9 +223,9 @@ export const NetworkMap = ({
         </text>
         <text
           x={CENTER.x}
-          y={CENTER.y + HUB_RADIUS + 39}
+          y={CENTER.y + HUB_RADIUS + 41}
           textAnchor="middle"
-          fontSize={11.5}
+          fontSize={13.5}
           fill="var(--muted-foreground)"
         >
           {formatAmount(hederaSupply, decimals, 2)} {symbol}
@@ -273,9 +273,9 @@ export const NetworkMap = ({
             </text>
             <text
               x={position.x}
-              y={above ? position.y - SPOKE_RADIUS - 28 : position.y + SPOKE_RADIUS + 24}
+              y={above ? position.y - SPOKE_RADIUS - 30 : position.y + SPOKE_RADIUS + 24}
               textAnchor="middle"
-              fontSize={13}
+              fontSize={15}
               fontWeight={600}
               fill="var(--foreground)"
             >
@@ -283,9 +283,9 @@ export const NetworkMap = ({
             </text>
             <text
               x={position.x}
-              y={above ? position.y - SPOKE_RADIUS - 12 : position.y + SPOKE_RADIUS + 40}
+              y={above ? position.y - SPOKE_RADIUS - 12 : position.y + SPOKE_RADIUS + 42}
               textAnchor="middle"
-              fontSize={11.5}
+              fontSize={13.5}
               fill="var(--muted-foreground)"
             >
               {formatAmount(spoke.supply ?? spoke.outstanding, decimals, 2)} {symbol}

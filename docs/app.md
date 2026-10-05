@@ -10,7 +10,8 @@ The Next.js app in `packages/nextjs` is how investors and the issuer use Atollwa
 | --- | --- | --- |
 | `/` Overview | Everyone | The hub and its spokes on a live map, total supply split by chain, the NAV and the Chainlink HBAR price, and the hub's latest events. |
 | `/invest` | Investors | Setup (a Hedera account, linking the token, approval), subscriptions in HBAR, holdings on every chain, moving shares between chains and tracking each transfer until it lands. |
-| `/issuer` | The issuer | Approving, freezing and revoking investors, spoke caps and resending approvals, the NAV, price freshness, where proceeds go, and the pause switch. Anyone can view it; only the hub's owner can act. |
+| `/issuer` | The issuer | Creating the asset on a new hub, approving, freezing and revoking investors, spoke caps and resending approvals, the NAV, price freshness, where proceeds go, and the pause switch. Anyone can view it; only the hub's owner can act. |
+| `/docs` | Everyone | The template as a tokenization starter: setup from the scaffold command, where to go next, its building blocks, how a token moves, what is inside, and what to build on it. |
 | `/debug` | Developers | Scaffold-HBAR's contract debugger, for each chain. |
 
 ## Where the data comes from
@@ -41,7 +42,7 @@ Inside the Hedera EVM, `msg.value` and the hub's fee quotes are in tinybars (8 d
 | File | What it holds |
 | --- | --- |
 | `scaffold.config.ts` | The networks the wallet can use, their RPC URLs, and the WalletConnect project ID |
-| `atollway.config.ts` | Each chain's name, colour and faucet; each spoke's relay chain and typical delivery times; the mirror node URL |
+| `atollway.config.ts` | The project's links and author; each chain's name, colour and faucet; each spoke's relay chain and typical delivery times; the mirror node URL |
 | `styles/globals.css` | The theme: colours for light and dark mode, including one per chain |
 
 | Environment variable | Default |
