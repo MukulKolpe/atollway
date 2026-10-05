@@ -44,7 +44,7 @@ If you cloned without `--recurse-submodules`, run `git submodule update --init -
 2. **Create a branch** named `<type>/<short-description>`, for example `feat/spoke-registry` or `docs/quickstart`.
 3. **Commit using [Conventional Commits](https://www.conventionalcommits.org).** Keep commits small and focused.
 4. **Open a pull request** using the template, and link the issue with `Closes #<number>`.
-5. **Wait for CI to pass** and for a review. Pull requests are squash-merged, so the pull request title becomes the commit message on `main`.
+5. **Wait for CI to pass** and for a review. Pull requests are merged with a merge commit, so keep each commit focused and its message in Conventional Commits form.
 
 ### Commit types
 

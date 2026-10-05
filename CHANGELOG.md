@@ -6,8 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-05
+
 ### Added
 
+- `AGENTS.md`, a guide for AI coding agents, with a `CLAUDE.md` pointer.
+- Dependabot for npm packages and GitHub Actions.
 - Issue forms for tasks, bug reports, feature requests, documentation and spoke chain requests, and a pull request template.
 - EditorConfig, a root .gitignore and a pinned Node.js version.
 - Foundry and Next.js monorepo based on the Scaffold-HBAR `blank` template ([`b2a23f5`](https://github.com/hedera-dev/scaffold-hbar/tree/b2a23f5ff274200174a9d0a4e23b1968663d6ba8)), with Solidity libraries pinned as submodules.
@@ -54,6 +58,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- The repository is public and the template can be scaffolded with `npm create scaffold-hbar@latest`.
+- Pull requests are merged with merge commits.
 - README rewritten for Atollway.
 - Contracts compile with the Solidity optimizer (200 runs).
 - The Foundry package README documents the hub contracts, testing and deployment.

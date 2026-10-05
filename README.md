@@ -1,10 +1,12 @@
 # Atollway
 
+[![CI](https://github.com/MukulKolpe/atollway/actions/workflows/ci.yml/badge.svg)](https://github.com/MukulKolpe/atollway/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Hedera testnet](https://img.shields.io/badge/Hedera-testnet-8259ef.svg)](docs/deployments.md)
+
 Issue a tokenized asset on Hedera, hold it on other major chains, and keep compliance, pricing and payouts on Hedera.
 
 Atollway is a [Scaffold-HBAR](https://docs.hedera.com/solutions/tools/scaffold-hbar) template for tokenized funds, bonds and other real-world assets that live on more than one chain.
 
-> **Status:** in development. The Hedera hub and three spokes are running on testnet ([deployments](docs/deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over Chainlink CCIP, and Robinhood Chain over CCIP through a relay on Base. The app serves investors and the issuer on every chain. Payouts are next. See the [roadmap](docs/roadmap.md).
+> **Status:** first release, on testnet. The Hedera hub and three spokes are running on testnet ([deployments](docs/deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over Chainlink CCIP, and Robinhood Chain over CCIP through a relay on Base. The app serves investors and the issuer on every chain. Scheduled payouts are next. See the [roadmap](docs/roadmap.md).
 
 ## Why Atollway
 
@@ -44,7 +46,7 @@ The [architecture document](docs/architecture.md) covers the components, message
 
 ## Getting started
 
-Atollway is not released yet. Once it is, create a project from it with:
+Create a project from the template with:
 
 ```bash
 npm create scaffold-hbar@latest -- --template MukulKolpe/atollway
