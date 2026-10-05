@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- A `/docs` page in the app, written as a tokenization starter: setup from the scaffold command, where to go next, the building blocks, the life of a token, what is inside the template, and ideas to build on it.
+- Template highlights on the overview: the command that scaffolds it, what comes with it, and ideas to build.
+- Issuer console: create the asset on a newly deployed hub.
+
+### Changed
+
+- Larger type and higher-contrast secondary text across the app, and a larger header and footer with links to the source and the author.
+
 ## [0.1.0] - 2026-10-05
 
 ### Added

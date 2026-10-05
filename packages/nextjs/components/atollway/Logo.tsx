@@ -29,7 +29,7 @@ export const LogoMark = ({ className }: { className?: string }) => (
 
 export const Logo = ({ className }: { className?: string }) => (
   <span className={cn("flex items-center gap-2.5", className)}>
-    <LogoMark />
-    <span className="text-lg font-semibold tracking-tight">Atollway</span>
+    <LogoMark className="size-9" />
+    <span className="text-xl font-semibold tracking-tight">Atollway</span>
   </span>
 );

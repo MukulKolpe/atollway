@@ -23,6 +23,17 @@ export type SpokeRoute = {
 };
 
 const atollwayConfig = {
+  /** The project, for links and the command that scaffolds it. Change these when you fork the template. */
+  project: {
+    repository: "https://github.com/MukulKolpe/atollway",
+    template: "MukulKolpe/atollway",
+    author: {
+      name: "Mukul",
+      github: "https://github.com/MukulKolpe",
+      twitter: "https://twitter.com/MukulKolpe",
+    },
+  },
+
   /** The chain the asset is issued on. */
   hubChainId: hederaTestnet.id,
 

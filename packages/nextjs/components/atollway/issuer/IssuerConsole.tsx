@@ -1,7 +1,9 @@
 "use client";
 
 import { ShieldCheckIcon, ShieldIcon } from "lucide-react";
+import { zeroAddress } from "viem";
 import { useAccount } from "wagmi";
+import { CreateAssetCard } from "~~/components/atollway/issuer/CreateAssetCard";
 import { InvestorsPanel } from "~~/components/atollway/issuer/InvestorsPanel";
 import { SettingsPanel } from "~~/components/atollway/issuer/SettingsPanel";
 import { SpokesPanel } from "~~/components/atollway/issuer/SpokesPanel";
@@ -24,7 +26,7 @@ export const IssuerConsole = () => {
   const { isIssuer, owner } = useIssuer();
   const { investors } = useInvestorDirectory();
   const { spokes } = useSpokes();
-  const { paused } = useHub();
+  const { paused, token } = useHub();
   const waiting = investors.filter(investor => investor.associated && investor.status === "None").length;
   const approved = investors.filter(investor => investor.status === "Approved").length;
 
@@ -32,8 +34,8 @@ export const IssuerConsole = () => {
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 pt-10 pb-20 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-3xl font-semibold tracking-tight">Issuer console</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-4xl font-semibold tracking-tight">Issuer console</h1>
+          <p className="text-lg text-muted-foreground">
             Decisions are made once on Hedera and reach every chain through the bridges.
           </p>
         </div>
@@ -55,6 +57,8 @@ export const IssuerConsole = () => {
           </AlertDescription>
         </Alert>
       )}
+
+      {token === zeroAddress && <CreateAssetCard />}
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {[
