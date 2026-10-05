@@ -52,7 +52,7 @@ export const Overview = () => {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="h-11 rounded-full px-5 text-base">
-              <Link href="/debug">Explore the contracts</Link>
+              <Link href="/issuer">Open the issuer console</Link>
             </Button>
           </div>
         </div>

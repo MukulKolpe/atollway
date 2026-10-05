@@ -49,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Network overview in the app: a live map of the hub and its spokes, total supply split by chain, the NAV, the Chainlink HBAR price and the hub's latest events.
 - Investor portal: guided setup, subscriptions in HBAR with slippage protection, and holdings on every chain.
 - Moving shares between Hedera and the spokes from the app, with a timeline for each transfer from Chainlink's CCIP API, Axelarscan and on-chain arrival checks.
+- Issuer console: investors waiting for approval, decisions with their status on every spoke, spoke caps and resending approvals, the NAV, price freshness, proceeds and the pause switch.
 
 ### Changed
 
