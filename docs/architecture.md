@@ -2,7 +2,7 @@
 
 Atollway lets an issuer create one tokenized asset on Hedera and offer it on other chains, while compliance, pricing and servicing stay on Hedera.
 
-> **Status:** the hub and three spokes are deployed to testnet ([deployments](deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over CCIP, and Robinhood Chain over CCIP through the Base relay. The app comes next, in the order shown in the [roadmap](roadmap.md). The decisions behind this design are recorded in [`docs/adr`](adr/README.md).
+> **Status:** the hub and three spokes are deployed to testnet ([deployments](deployments.md)): Base Sepolia over Axelar, Arbitrum Sepolia over CCIP, and Robinhood Chain over CCIP through the Base relay. The app serves investors and the issuer. Payouts come next, in the order shown in the [roadmap](roadmap.md). The decisions behind this design are recorded in [`docs/adr`](adr/README.md).
 
 ## Overview
 
@@ -47,6 +47,17 @@ The **hub** on Hedera issues the asset, keeps the investor register and the supp
 | --- | --- |
 | Transport adapter | One per bridge: Axelar General Message Passing or Chainlink CCIP. Sends messages and checks the source of incoming ones before passing them to the hub or a gateway ([ADR-0003](adr/0003-axelar-and-ccip-transports.md)). |
 | Base relay | Forwards CCIP messages between Hedera and chains with no direct CCIP lane to Hedera, such as Robinhood Chain and Canton. It pays the second hop from its own balance ([ADR-0009](adr/0009-ccip-relay.md)). |
+
+### App
+
+| Component | Responsibility |
+| --- | --- |
+| Overview | Shows the hub and its spokes, the supply on each chain, the NAV, the HBAR price and the hub's events. |
+| Investor portal | Guides an investor through setup, subscribes with HBAR, shows holdings on every chain and moves shares between them. |
+| Issuer console | Approves, freezes and revokes investors, shows which spokes applied each decision, and manages caps, the NAV and the pause. |
+| Transfer tracker | Follows each transfer through its bridge with Chainlink's CCIP API and Axelarscan, and confirms its arrival on-chain. |
+
+The app reads the chains, the Hedera mirror node and the bridge APIs from the browser. It has no backend and holds no keys ([the app](app.md)).
 
 ## Glossary
 
@@ -151,6 +162,7 @@ sequenceDiagram
 | Issuer | Approving investors, setting the NAV and caps, pausing | The issuer controls the asset by design. In production, use a multisig or a Hedera threshold key. |
 | Hedera network | Token rules, ordering, scheduled execution | Atollway inherits Hedera's security. |
 | Bridge (Axelar or CCIP) | Delivering authentic messages between the hub and spokes | A forged message can mint at most the remaining cap on spokes bound to that bridge, or release on Hedera at most those spokes' outstanding amounts ([ADR-0005](adr/0005-spoke-supply-caps.md)). |
+| App | Showing state and preparing transactions | It holds no keys. Every transaction is simulated, then signed in the user's wallet, and the contracts enforce the rules whatever the app shows. |
 | Chainlink price feed | The HBAR/USD price | A wrong price mis-prices subscriptions. Subscriptions stop when the feed is older than the configured limit. |
 
 ## Failure modes

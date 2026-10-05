@@ -38,6 +38,9 @@
             },
             {
               "text": "packages/foundry/README.md shows how to create the asset and subscribe on testnet."
+            },
+            {
+              "text": "docs/app.md explains the app and how to add a spoke to it."
             }
           ]
         }
