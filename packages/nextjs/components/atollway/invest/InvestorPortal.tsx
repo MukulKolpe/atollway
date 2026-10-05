@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { CheckCircle2Icon } from "lucide-react";
 import { useAccount } from "wagmi";
 import { ConnectPrompt } from "~~/components/atollway/ConnectPrompt";
@@ -7,6 +8,8 @@ import { StatusBadge } from "~~/components/atollway/StatusBadge";
 import { Onboarding } from "~~/components/atollway/invest/Onboarding";
 import { Portfolio } from "~~/components/atollway/invest/Portfolio";
 import { SubscribeCard } from "~~/components/atollway/invest/SubscribeCard";
+import { TransferDialog } from "~~/components/atollway/transfers/TransferDialog";
+import { TransferList } from "~~/components/atollway/transfers/TransferList";
 import { useInvestor } from "~~/hooks/atollway/useInvestor";
 import { shortAddress } from "~~/utils/atollway/format";
 import { HUB_CHAIN_ID, getProfile } from "~~/utils/atollway/networks";
@@ -18,11 +21,12 @@ const REQUIREMENTS = [
 ];
 
 /**
- * The investor's page: setup, subscriptions and holdings on every chain.
+ * The investor's page: setup, subscriptions, holdings on every chain and transfers between them.
  */
 export const InvestorPortal = () => {
   const { address } = useAccount();
   const investor = useInvestor(address);
+  const [moveFrom, setMoveFrom] = useState<number>();
 
   if (!address) {
     return (
@@ -64,7 +68,10 @@ export const InvestorPortal = () => {
       <div className="grid items-start gap-6 lg:grid-cols-[1.35fr_1fr]">
         <div className="contents lg:flex lg:flex-col lg:gap-6">
           <div className="order-2 min-w-0 lg:order-none">
-            <Portfolio address={address} />
+            <Portfolio address={address} onMove={setMoveFrom} />
+          </div>
+          <div className="order-4 min-w-0 lg:order-none">
+            <TransferList address={address} />
           </div>
         </div>
         <div className="contents lg:flex lg:flex-col lg:gap-6">
@@ -76,6 +83,13 @@ export const InvestorPortal = () => {
           </div>
         </div>
       </div>
+
+      <TransferDialog
+        address={address}
+        open={moveFrom !== undefined}
+        initialSource={moveFrom}
+        onOpenChange={open => !open && setMoveFrom(undefined)}
+      />
     </div>
   );
 };
