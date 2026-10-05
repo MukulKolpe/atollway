@@ -47,6 +47,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Scripts to deploy spokes over Chainlink CCIP, directly or through the relay, and to connect them to the hub.
 - Spokes on Arbitrum Sepolia over Chainlink CCIP and on Robinhood Chain testnet through the CCIP relay ([deployments](docs/deployments.md)).
 - Network overview in the app: a live map of the hub and its spokes, total supply split by chain, the NAV, the Chainlink HBAR price and the hub's latest events.
+- Investor portal: guided setup, subscriptions in HBAR with slippage protection, and holdings on every chain.
 
 ### Changed
 
