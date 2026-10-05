@@ -2,73 +2,64 @@
 
 // @refresh reset
 import { AddressInfoDropdown } from "./AddressInfoDropdown";
-import { RevealBurnerPKModal } from "./RevealBurnerPKModal";
-import { SetBurnerPKModal } from "./SetBurnerPKModal";
+import { NetworkOptions } from "./NetworkOptions";
 import { WrongNetworkDropdown } from "./WrongNetworkDropdown";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Balance } from "@scaffold-hbar-ui/components";
+import { ChevronDownIcon, WalletIcon } from "lucide-react";
 import { Address } from "viem";
-import { useNetworkColor } from "~~/hooks/scaffold-hbar";
-import { useTargetNetwork } from "~~/hooks/scaffold-hbar/useTargetNetwork";
-import { getBlockExplorerAddressLink } from "~~/utils/scaffold-hbar";
+import { ChainIcon } from "~~/components/atollway/ChainIcon";
+import { Button } from "~~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "~~/components/ui/dropdown-menu";
+import { accountUrl, getChain, getProfile } from "~~/utils/atollway/networks";
 
 /**
- * Custom Wagmi Connect Button (watch balance + custom design)
+ * Connect button, network switcher and account menu.
  */
 export const RainbowKitCustomConnectButton = () => {
-  const networkColor = useNetworkColor();
-  const { targetNetwork } = useTargetNetwork();
-
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
         const connected = mounted && account && chain;
-        const blockExplorerAddressLink = account
-          ? getBlockExplorerAddressLink(targetNetwork, account.address)
-          : undefined;
+
+        if (!connected) {
+          return (
+            <Button size="lg" className="rounded-full px-4" onClick={openConnectModal} disabled={!mounted}>
+              <WalletIcon />
+              Connect wallet
+            </Button>
+          );
+        }
+
+        if (chain.unsupported || !getChain(chain.id)) {
+          return <WrongNetworkDropdown />;
+        }
 
         return (
-          <>
-            {(() => {
-              if (!connected) {
-                return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
-                    Connect Wallet
-                  </button>
-                );
-              }
-
-              if (chain.unsupported || chain.id !== targetNetwork.id) {
-                return <WrongNetworkDropdown />;
-              }
-
-              return (
-                <>
-                  <div className="flex flex-col items-center mr-2">
-                    <Balance
-                      address={account.address as Address}
-                      style={{
-                        minHeight: "0",
-                        height: "auto",
-                        fontSize: "0.8em",
-                      }}
-                    />
-                    <span className="text-xs" style={{ color: networkColor }}>
-                      {chain.name}
-                    </span>
-                  </div>
-                  <AddressInfoDropdown
-                    address={account.address as Address}
-                    displayName={account.displayName}
-                    ensAvatar={account.ensAvatar}
-                    blockExplorerAddressLink={blockExplorerAddressLink}
-                  />
-                  <RevealBurnerPKModal />
-                  <SetBurnerPKModal />
-                </>
-              );
-            })()}
-          </>
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="lg" className="rounded-full pl-1.5" aria-label="Switch network">
+                  <ChainIcon chainId={chain.id} size={22} />
+                  <span className="hidden sm:inline">{getProfile(chain.id).name}</span>
+                  <ChevronDownIcon className="text-muted-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-60">
+                <DropdownMenuLabel>Network</DropdownMenuLabel>
+                <NetworkOptions />
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <AddressInfoDropdown
+              address={account.address as Address}
+              displayBalance={account.displayBalance}
+              blockExplorerAddressLink={accountUrl(chain.id, account.address)}
+            />
+          </div>
         );
       }}
     </ConnectButton.Custom>

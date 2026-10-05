@@ -5,25 +5,25 @@ import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowki
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppProgressBar as ProgressBar } from "next-nprogress-bar";
 import { useTheme } from "next-themes";
-import { Toaster } from "react-hot-toast";
-import { hederaTestnet } from "viem/chains";
 import { WagmiProvider } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
-import { LocalChainErrorBanner } from "~~/components/LocalChainErrorBanner";
 import { BlockieAvatar } from "~~/components/scaffold-hbar";
+import { Toaster } from "~~/components/ui/sonner";
+import { TooltipProvider } from "~~/components/ui/tooltip";
+import { hederaTestnet } from "~~/scaffold.config";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 
 const ScaffoldHbarApp = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="relative flex min-h-screen flex-col">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[40rem] bg-lagoon" />
         <Header />
-        <LocalChainErrorBanner />
-        <main className="relative flex flex-col flex-1">{children}</main>
+        <main className="relative flex flex-1 flex-col">{children}</main>
         <Footer />
       </div>
-      <Toaster />
+      <Toaster position="bottom-right" richColors closeButton />
     </>
   );
 };
@@ -36,45 +36,35 @@ export const queryClient = new QueryClient({
   },
 });
 
+// RainbowKit's dialogs, in the app's teal.
+const rainbowKitThemes = {
+  light: lightTheme({ accentColor: "#0e8a97", borderRadius: "large", overlayBlur: "small" }),
+  dark: darkTheme({
+    accentColor: "#5ad8d0",
+    accentColorForeground: "#0b1d2a",
+    borderRadius: "large",
+    overlayBlur: "small",
+  }),
+};
+
 export const ScaffoldHbarAppWithProviders = ({ children }: { children: React.ReactNode }) => {
   const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === "dark";
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const rainbowKitTheme = mounted
-    ? isDarkMode
-      ? darkTheme({
-          accentColor: "#8259ef",
-          accentColorForeground: "white",
-          borderRadius: "large",
-          fontStack: "system",
-          overlayBlur: "small",
-        })
-      : lightTheme({
-          accentColor: "#4f46e5",
-          accentColorForeground: "white",
-          borderRadius: "large",
-          fontStack: "system",
-          overlayBlur: "small",
-        })
-    : lightTheme({
-        accentColor: "#4f46e5",
-        accentColorForeground: "white",
-        borderRadius: "large",
-        fontStack: "system",
-        overlayBlur: "small",
-      });
+  const rainbowKitTheme = mounted && resolvedTheme === "dark" ? rainbowKitThemes.dark : rainbowKitThemes.light;
 
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-        <ProgressBar height="3px" color="#2299dd" />
-        <RainbowKitProvider avatar={BlockieAvatar} coolMode initialChain={hederaTestnet} theme={rainbowKitTheme}>
-          <ScaffoldHbarApp>{children}</ScaffoldHbarApp>
+        <ProgressBar height="2px" color="#2bb3b1" options={{ showSpinner: false }} shallowRouting />
+        <RainbowKitProvider avatar={BlockieAvatar} initialChain={hederaTestnet} theme={rainbowKitTheme}>
+          <TooltipProvider delayDuration={150}>
+            <ScaffoldHbarApp>{children}</ScaffoldHbarApp>
+          </TooltipProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

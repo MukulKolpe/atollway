@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import type { Address as AddressType, Chain } from "viem";
 import { getAddress } from "viem";
-import { CheckCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { BlockieAvatar } from "~~/components/scaffold-hbar";
-import { useHederaAccountId } from "~~/hooks/scaffold-hbar";
+import { Skeleton } from "~~/components/ui/skeleton";
+import { useCopyToClipboard, useHederaAccountId } from "~~/hooks/scaffold-hbar";
 import { getBlockExplorerAddressLink } from "~~/utils/scaffold-hbar";
 
 type HederaAddressProps = {
@@ -15,15 +15,18 @@ type HederaAddressProps = {
   disableAddressLink?: boolean;
 };
 
+/**
+ * An EVM address with its avatar, a copy button and, on Hedera, the account ID it belongs to.
+ */
 export const HederaAddress = ({ address, chain, format, disableAddressLink }: HederaAddressProps) => {
-  const [copied, setCopied] = useState(false);
+  const { copyToClipboard, isCopiedToClipboard } = useCopyToClipboard();
   const { accountId, isLoading } = useHederaAccountId(address, chain.id);
 
   if (!address) {
     return (
-      <div className="flex items-center gap-2 animate-pulse">
-        <div className="w-6 h-6 rounded-full bg-base-300" />
-        <div className="w-32 h-4 rounded bg-base-300" />
+      <div className="flex items-center gap-2">
+        <Skeleton className="size-6 rounded-full" />
+        <Skeleton className="h-4 w-32" />
       </div>
     );
   }
@@ -32,14 +35,7 @@ export const HederaAddress = ({ address, chain, format, disableAddressLink }: He
   const shortAddress = `${checkSumAddress.slice(0, 6)}...${checkSumAddress.slice(-4)}`;
   const displayAddress = format === "long" ? checkSumAddress : shortAddress;
   const explorerLink = getBlockExplorerAddressLink(chain, checkSumAddress);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(checkSumAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 800);
-  };
-
-  const addressContent = <span className="text-sm font-normal">{displayAddress}</span>;
+  const addressContent = <span className="font-mono text-sm">{displayAddress}</span>;
 
   return (
     <div className="flex flex-col items-center gap-1">
@@ -48,22 +44,23 @@ export const HederaAddress = ({ address, chain, format, disableAddressLink }: He
         {disableAddressLink ? (
           addressContent
         ) : (
-          <a href={explorerLink} target="_blank" rel="noreferrer" className="link no-underline hover:underline">
+          <a href={explorerLink} target="_blank" rel="noreferrer" className="hover:underline">
             {addressContent}
           </a>
         )}
-        <button type="button" className="btn btn-ghost btn-xs p-0 min-h-0 h-auto" onClick={handleCopy}>
-          {copied ? (
-            <CheckCircleIcon className="w-4 h-4 text-success" />
-          ) : (
-            <DocumentDuplicateIcon className="w-4 h-4 opacity-70 hover:opacity-100" />
-          )}
+        <button
+          type="button"
+          aria-label="Copy address"
+          className="text-muted-foreground hover:text-foreground"
+          onClick={() => copyToClipboard(checkSumAddress)}
+        >
+          {isCopiedToClipboard ? <CheckIcon className="size-4 text-success" /> : <CopyIcon className="size-4" />}
         </button>
       </div>
       {isLoading ? (
-        <span className="text-xs text-base-content/60 animate-pulse">Resolving Hedera Account ID…</span>
+        <Skeleton className="h-3 w-40" />
       ) : accountId ? (
-        <span className="text-xs text-base-content/80">Hedera Account ID: {accountId}</span>
+        <span className="text-xs text-muted-foreground">Hedera account {accountId}</span>
       ) : null}
     </div>
   );

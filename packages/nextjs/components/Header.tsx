@@ -1,59 +1,50 @@
 "use client";
 
-import React, { useRef } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MenuIcon } from "lucide-react";
+import { SwitchTheme } from "~~/components/SwitchTheme";
+import { Logo } from "~~/components/atollway/Logo";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-hbar";
-import { useOutsideClick } from "~~/hooks/scaffold-hbar";
+import { Badge } from "~~/components/ui/badge";
+import { Button } from "~~/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "~~/components/ui/sheet";
+import { cn } from "~~/lib/utils";
 
 type HeaderMenuLink = {
   label: string;
   href: string;
-  icon?: React.ReactNode;
 };
 
 export const menuLinks: HeaderMenuLink[] = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Block Explorer",
-    href: "/blockexplorer",
-    icon: <MagnifyingGlassIcon className="h-4 w-4" />,
-  },
+  { label: "Overview", href: "/" },
+  { label: "Contracts", href: "/debug" },
 ];
 
-export const HeaderMenuLinks = () => {
+const HeaderMenuLinks = ({ onNavigate, vertical }: { onNavigate?: () => void; vertical?: boolean }) => {
   const pathname = usePathname();
 
   return (
-    <>
-      {menuLinks.map(({ label, href, icon }) => {
-        const isActive = pathname === href;
+    <nav className={cn("flex gap-1", vertical && "flex-col")}>
+      {menuLinks.map(({ label, href }) => {
+        const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
         return (
-          <li key={href}>
-            <Link
-              href={href}
-              passHref
-              className={`${
-                isActive ? "bg-primary/10 text-primary font-semibold" : "hover:bg-primary/5"
-              } py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col transition-colors`}
-            >
-              {icon}
-              <span>{label}</span>
-            </Link>
-          </li>
+          <Link
+            key={href}
+            href={href}
+            onClick={onNavigate}
+            className={cn(
+              "rounded-full px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
+              isActive && "bg-foreground/[0.06] text-foreground dark:bg-white/10",
+              vertical && "rounded-lg px-3 py-2.5 text-base",
+            )}
+          >
+            {label}
+          </Link>
         );
       })}
-    </>
+    </nav>
   );
 };
 
@@ -61,46 +52,42 @@ export const HeaderMenuLinks = () => {
  * Site header
  */
 export const Header = () => {
-  const burgerMenuRef = useRef<HTMLDetailsElement>(null);
-  useOutsideClick(burgerMenuRef, () => {
-    burgerMenuRef?.current?.removeAttribute("open");
-  });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 shrink-0 justify-between z-20 shadow-sm border-b border-base-300 px-0 sm:px-2">
-      <div className="navbar-start w-auto lg:w-1/2">
-        <details className="dropdown" ref={burgerMenuRef}>
-          <summary className="ml-1 btn btn-ghost lg:hidden hover:bg-transparent">
-            <Bars3Icon className="h-1/2" />
-          </summary>
-          <ul
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow-sm bg-base-100 rounded-box w-52"
-            onClick={() => {
-              burgerMenuRef?.current?.removeAttribute("open");
-            }}
-          >
-            <HeaderMenuLinks />
-          </ul>
-        </details>
-        <Link href="/" passHref className="hidden lg:flex items-center gap-3 ml-4 mr-6 shrink-0">
-          <div className="flex relative w-9 h-9">
-            <Image alt="Hedera icon" className="cursor-pointer dark:hidden" fill src="/Hedera-Icon-Dark.svg" />
-            <Image alt="Hedera icon" className="cursor-pointer hidden dark:block" fill src="/Hedera-Icon-White.svg" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold leading-tight text-base">Scaffold-HBAR</span>
-            <span className="text-[10px] tracking-wider uppercase text-base-content/50 font-medium">
-              Built on Hedera
-            </span>
-          </div>
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:gap-4 sm:px-6">
+        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon-lg" className="md:hidden" aria-label="Open menu">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-72">
+            <SheetHeader>
+              <SheetTitle>
+                <Logo />
+              </SheetTitle>
+            </SheetHeader>
+            <div className="px-4">
+              <HeaderMenuLinks vertical onNavigate={() => setMenuOpen(false)} />
+            </div>
+          </SheetContent>
+        </Sheet>
+        <Link href="/" className="shrink-0">
+          <Logo />
         </Link>
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
+        <Badge variant="outline" className="hidden text-muted-foreground lg:inline-flex">
+          Testnet
+        </Badge>
+        <div className="hidden flex-1 justify-center md:flex">
           <HeaderMenuLinks />
-        </ul>
+        </div>
+        <div className="ml-auto flex items-center gap-1 md:ml-0">
+          <SwitchTheme className="hidden sm:inline-flex" />
+          <RainbowKitCustomConnectButton />
+        </div>
       </div>
-      <div className="navbar-end grow mr-4">
-        <RainbowKitCustomConnectButton />
-      </div>
-    </div>
+    </header>
   );
 };

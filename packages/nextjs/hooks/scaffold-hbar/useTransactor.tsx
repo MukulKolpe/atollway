@@ -17,11 +17,11 @@ type TransactionFunc = (
  */
 const TxnNotification = ({ message, blockExplorerLink }: { message: string; blockExplorerLink?: string }) => {
   return (
-    <div className={`flex flex-col ml-1 cursor-default`}>
-      <p className="my-0">{message}</p>
+    <div className="flex flex-col gap-0.5 cursor-default">
+      <p>{message}</p>
       {blockExplorerLink && blockExplorerLink.length > 0 ? (
-        <a href={blockExplorerLink} target="_blank" rel="noreferrer" className="block link">
-          check out transaction
+        <a href={blockExplorerLink} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+          View transaction
         </a>
       ) : null}
     </div>
@@ -86,9 +86,6 @@ export const useTransactor = (_walletClient?: WalletClient): TransactionFunc => 
 
       notification.success(
         <TxnNotification message="Transaction completed successfully!" blockExplorerLink={blockExplorerTxURL} />,
-        {
-          icon: "🎉",
-        },
       );
 
       if (options?.onBlockConfirmation) options.onBlockConfirmation(transactionReceipt);

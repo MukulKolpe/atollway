@@ -1,5 +1,5 @@
 {
-  "name": "Scaffold-HBAR 2 DApp",
-  "description": "A DApp built with Scaffold-HBAR",
-  "iconPath": "logo.svg"
+  "name": "Atollway",
+  "description": "Issue a tokenized fund on Hedera and hold it on Base, Arbitrum and Robinhood Chain.",
+  "iconPath": "favicon.svg"
 }

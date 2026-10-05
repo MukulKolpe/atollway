@@ -1,5 +1,5 @@
 import * as chains from "viem/chains";
-import scaffoldConfig from "~~/scaffold.config";
+import scaffoldConfig, { robinhoodTestnet } from "~~/scaffold.config";
 
 type ChainAttributes = {
   // color | [lightThemeColor, darkThemeColor]
@@ -24,12 +24,26 @@ export const NETWORKS_EXTRA_DATA: Record<string, ChainAttributes> = {
   [chains.hederaTestnet.id]: {
     color: ["#8259EF", "#A98AFF"],
   },
+  [chains.baseSepolia.id]: {
+    color: ["#0052FF", "#5C8BFF"],
+  },
+  [chains.arbitrumSepolia.id]: {
+    color: ["#1B9AE0", "#5EC0FF"],
+  },
+  [robinhoodTestnet.id]: {
+    color: ["#5E9E00", "#C6F432"],
+  },
 };
 
 /**
  * Gives the block explorer transaction URL.
  */
 export function getBlockExplorerTxLink(chainId: number, txnHash: string) {
+  const targetNetwork = scaffoldConfig.targetNetworks.find(network => network.id === chainId);
+  if (targetNetwork?.blockExplorers?.default?.url) {
+    return `${targetNetwork.blockExplorers.default.url}/tx/${txnHash}`;
+  }
+
   const chainNames = Object.keys(chains);
 
   const targetChainArr = chainNames.filter(chainName => {
